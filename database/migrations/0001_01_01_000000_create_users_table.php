@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('TenTaiKhoan', 255)->primary();
             $table->string('MatKhau', 255);
             $table->text('VaiTro');
+            $table->string('email')->unique();
             $table->softDeletes();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

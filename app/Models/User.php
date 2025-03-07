@@ -18,11 +18,48 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+
+    protected $primaryKey = 'tentaikhoan';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $fillable = ['tentaikhoan', 'matkhau', 'vaitro', 'email'];
+
+    // Mối quan hệ 1-1 với Student
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'tentaikhoan', 'tentaikhoan');
+    }
+
+    // Mối quan hệ 1-1 với Teacher
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class, 'tentaikhoan', 'tentaikhoan');
+    }
+
+    // Mối quan hệ 1-1 với Admin
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'tentaikhoan', 'tentaikhoan');
+    }
+
+    // Mối quan hệ 1-n với feedbacks (nguoiphanhoi)
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'nguoiphanhoi', 'tentaikhoan');
+    }
+
+    // Mối quan hệ 1-n với ResearchPaper (nguoidang)
+    public function researchPapers()
+    {
+        return $this->hasMany(ResearchPaper::class, 'nguoidang', 'tentaikhoan');
+    }
+
+    // Mối quan hệ 1-n với News (nguoidang)
+    public function news()
+    {
+        return $this->hasMany(News::class, 'nguoidang', 'tentaikhoan');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

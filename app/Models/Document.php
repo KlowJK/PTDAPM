@@ -10,4 +10,9 @@ class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */
     use HasFactory, softDeletes;
+    protected $table = 'documents';
+    protected $primaryKey = 'matailieu';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $fillable = ['matailieu', 'tentailieu', 'path', 'noidung', 'ngaydang', 'nguoidang'];
 }

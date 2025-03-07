@@ -10,4 +10,16 @@ class Teacher extends Model
 {
     /** @use HasFactory<\Database\Factories\TeacherFactory> */
     use HasFactory, SoftDeletes;
+
+    protected $table = 'teachers';
+    protected $primaryKey = 'magiaovien';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $fillable = ['magiaovien', 'tengiaovien', 'khoa', 'quequan', 'tentaikhoan'];
+
+    // Mối quan hệ n-1 với User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'tentaikhoan', 'tentaikhoan');
+    }
 }
