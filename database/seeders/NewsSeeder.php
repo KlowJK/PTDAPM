@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use app\Models\News;
+use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class NewsSeeder extends Seeder
 {
@@ -13,23 +15,21 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        News::create([
-            'matintuc' => 'TT001',
-            'tentintuc' => 'Khai giang nam hoc moi',
-            'tomtat' => 'Truong to chuc le khai giang...',
-            'path' => '/news/khaigiang.pdf',
-            'ngaydang' => now(),
-            'nguoidang' => 'admin1',
-        ]);
+        $faker = Faker::create('vi_VN');
+        $users = DB::table('users')->pluck('TenTaiKhoan')->toArray();
 
-        News::create([
-            'matintuc' => 'TT002',
-            'tentintuc' => 'Hoi thao khoa hoc',
-            'tomtat' => 'Hoi thao ve cong nghe moi...',
-            'path' => '/news/hoithao.pdf',
-            'ngaydang' => now(),
-            'nguoidang' => 'teacher1',
-        ]);
+        for ($i = 1; $i <= 20; $i++) {
+            DB::table('news')->insert([
+                'matintuc' => 'TT' . $faker->unique()->numerify('####'),
+                'tentintuc' => $faker->sentence,
+                'tomtat' => $faker->paragraph,
+                'path' => '/news/' . $faker->slug,
+                'noidung' => $faker->paragraphs(3, true),
+                'ngaydang' => $faker->dateTimeThisYear(),
+                'nguoidang' => $faker->randomElement($users),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

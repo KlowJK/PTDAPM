@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use app\Models\Document;
+use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class DocumentSeeder extends Seeder
 {
@@ -14,22 +16,21 @@ class DocumentSeeder extends Seeder
     public function run(): void
     {
 
-        Document::create([
-            'matailieu' => 'TL001',
-            'tentailieu' => 'Huong dan dang ky hoc phan',
-            'path' => '/documents/huongdan.pdf',
-            'noidung' => 'Tai lieu huong dan chi tiet...',
-            'ngaydang' => now(),
-            'nguoidang' => 'admin1',
-        ]);
+        $faker = Faker::create('vi_VN');
+        $users = DB::table('users')->pluck('TenTaiKhoan')->toArray();
 
-        Document::create([
-            'matailieu' => 'TL002',
-            'tentailieu' => 'De cuong mon hoc',
-            'path' => '/documents/decuong.pdf',
-            'noidung' => 'Noi dung de cuong mon hoc...',
-            'ngaydang' => now(),
-            'nguoidang' => 'teacher1',
-        ]);
+        for ($i = 1; $i <= 20; $i++) {
+            DB::table('documents')->insert([
+                'matailieu' => 'TL' . $faker->unique()->numerify('####'),
+                'tentailieu' => $faker->sentence,
+                'hinhanh' => $faker->imageUrl(),
+                'path' => '/documents/' . $faker->slug,
+                'noidung' => $faker->paragraphs(3, true),
+                'ngaydang' => $faker->dateTimeThisYear(),
+                'nguoidang' => $faker->randomElement($users),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
