@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('TenTaiKhoan', 255)->primary();
-            $table->string('MatKhau', 255);
+            $table->string('tentaikhoan', 255)->primary();
+            $table->string('matkhau', 255);
             $table->enum('vaitro', ['admin', 'teacher', 'student']);
             $table->string('email')->unique();
             $table->softDeletes();

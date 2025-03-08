@@ -6,7 +6,7 @@ use App\Models\Authentication;
 use App\Http\Requests\StoreAuthenticationRequest;
 use App\Http\Requests\UpdateAuthenticationRequest;
 
-class AuthenticationController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,8 @@ class AuthenticationController extends Controller
     public function index()
     {
         //
+        $users = Authentication::paginate(10);
+        return view('users.index', compact('users'));
     }
 
     /**
