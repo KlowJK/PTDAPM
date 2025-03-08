@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->string('maquantri', 50)->primary();
             $table->string('tenquantri', 100);
+            $table->string('ngaysinh', 50);
+            $table->string('gioitinh', 50);
             $table->string('quequan', 255)->nullable();
             $table->string('tentaikhoan', 50);
             $table->foreign('tentaikhoan')->references('tentaikhoan')->on('users');

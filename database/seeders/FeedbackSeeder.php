@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use app\Models\Feedback;
+use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class FeedbackSeeder extends Seeder
 {
@@ -13,21 +15,25 @@ class FeedbackSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        Feedback::create([
-            'mathacmac' => 'TM001',
-            'noidung' => 'Lam sao de dang ky hoc phan?',
-            'ngaythacmac' => now(),
-            'ngayphanhoi' => now()->addDay(),
-            'nguoiphanhoi' => 'admin1',
-        ]);
+        $faker = Faker::create('vi_VN');
+        $users = DB::table('users')->pluck('TenTaiKhoan')->toArray();
+        $news = DB::table('news')->pluck('matintuc')->toArray();
 
-        Feedback::create([
-            'mathacmac' => 'TM002',
-            'noidung' => 'Lich thi cuoi ky khi nao cong bo?',
-            'ngaythacmac' => now(),
-            'ngayphanhoi' => null,
-            'nguoiphanhoi' => null,
-        ]);
+        for ($i = 1; $i <= 30; $i++) {
+            $ngaythacmac = $faker->dateTimeThisYear();
+            DB::table('feedback')->insert([
+                'mathacmac' => 'TM' . $faker->unique()->numerify('####'),
+                'nguoigui' => $faker->randomElement($users),
+                'noidung' => $faker->paragraph,
+                'phanhoi' => $faker->boolean(70) ? $faker->paragraph : null,
+                'ngaythacmac' => $ngaythacmac,
+                'ngayphanhoi' => $faker->boolean(70) ? $faker->dateTimeBetween($ngaythacmac, 'now') : null,
+                'nguoiphanhoi' => $faker->boolean(70) ? $faker->randomElement($users) : null,
+                'trangthai' => $faker->randomElement(['pending', 'processing', 'resolved']),
+                'mabaiviet' => $faker->boolean(50) ? $faker->randomElement($news) : null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

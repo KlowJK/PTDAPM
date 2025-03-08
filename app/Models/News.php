@@ -14,11 +14,16 @@ class News extends Model
     protected $primaryKey = 'matintuc';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['matintuc', 'tentintuc', 'tomtat', 'path', 'ngaydang', 'nguoidang'];
+    protected $fillable = ['matintuc', 'tentintuc', 'tomtat', 'path', 'noidung', 'ngaydang', 'nguoidang'];
 
     // Mối quan hệ n-1 với Account (nguoidang)
     public function user()
     {
         return $this->belongsTo(User::class, 'nguoidang', 'tentaikhoan');
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'mabaiviet', 'matintuc');
     }
 }
