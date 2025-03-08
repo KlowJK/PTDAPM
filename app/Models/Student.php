@@ -14,7 +14,7 @@ class Student extends Model
     protected $primaryKey = 'masinhvien';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['masinhvien', 'tensinhvien', 'khoa', 'ngaysinh', 'ngayratruong', 'quequan', 'tentaikhoan'];
+    protected $fillable = ['masinhvien', 'tensinhvien', 'khoa', 'lop', 'ngaysinh', 'gioitinh',  'quequan', 'tentaikhoan'];
 
     // Mối quan hệ n-1 với Account
     public function user()

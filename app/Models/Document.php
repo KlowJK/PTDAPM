@@ -14,5 +14,11 @@ class Document extends Model
     protected $primaryKey = 'matailieu';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['matailieu', 'tentailieu', 'path', 'noidung', 'ngaydang', 'nguoidang'];
+    protected $fillable = ['matailieu', 'tentailieu', 'hinhanh', 'path', 'noidung', 'ngaydang', 'nguoidang'];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nguoidang', 'tentaikhoan');
+    }
 }
