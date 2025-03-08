@@ -11,7 +11,7 @@ class Admin extends Model
     protected $primaryKey = 'maquantri';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['maquantri', 'tenquantri', 'ngaysinh', 'gioitinh', 'quequan', 'tentaikhoan'];
+    protected $fillable = ['maquantri', 'tenquantri', 'hinhanh', 'ngaysinh', 'gioitinh', 'quequan', 'tentaikhoan'];
 
     // Mối quan hệ n-1 với Account
     public function user()

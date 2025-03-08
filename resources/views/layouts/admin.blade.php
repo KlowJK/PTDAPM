@@ -31,6 +31,25 @@
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">
+                            <span class="hide-menu">Quản lý tin tức</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#" aria-expanded="false">
+                                <span>
+                                    <i class="bi bi-house-door-fill fs-6"></i>
+                                </span>
+                                <span class="hide-menu">Trang chủ</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#" aria-expanded="false">
+                                <span>
+                                    <i class="bi bi-speedometer2 fs-6"></i>
+                                </span>
+                                <span class="hide-menu">Bảng điều khiển</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
                             <i class="bi bi-gear-fill nav-small-cap-icon fs-6"></i>
                             <span class="hide-menu">Thành phần</span>
                         </li>
