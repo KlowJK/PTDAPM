@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->string('masinhvien', 50)->primary();
             $table->string('tensinhvien', 100);
+            $table->string('hinhanh')->nullable();
             $table->string('khoa', 100)->nullable();
             $table->string('lop', 100)->nullable();
             $table->string('ngaysinh', 50);
