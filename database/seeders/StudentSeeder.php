@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use app\Models\Student;
+use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 
 class StudentSeeder extends Seeder
@@ -14,25 +15,22 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        Student::create([
-            'masinhvien' => 'SV001',
-            'tensinhvien' => 'Nguyen Van A',
-            'khoa' => 'Cong nghe thong tin',
-            'ngaysinh' => '2000-01-01',
-            'ngayratruong' => '2024-06-30',
-            'quequan' => 'Ha Noi',
-            'tentaikhoan' => 'student1',
-        ]);
+        $faker = Faker::create('vi_VN');
+        $users = DB::table('users')->where('vaitro', 'student')->pluck('TenTaiKhoan')->toArray();
 
-        Student::create([
-            'masinhvien' => 'SV002',
-            'tensinhvien' => 'Tran Thi B',
-            'khoa' => 'Kinh te',
-            'ngaysinh' => '2001-05-15',
-            'ngayratruong' => null,
-            'quequan' => 'TP HCM',
-            'tentaikhoan' => 'student1',
-        ]);
+        foreach ($users as $user) {
+            DB::table('students')->insert([
+                'masinhvien' => 'SV' . $faker->unique()->numerify('####'),
+                'tensinhvien' => $faker->name,
+                'khoa' => $faker->randomElement(['CNTT', 'Kinh tế', 'Ngoại ngữ', 'Kỹ thuật']),
+                'lop' => 'D' . $faker->numerify('##') . $faker->randomElement(['A', 'B', 'C']),
+                'ngaysinh' => $faker->date('Y-m-d', '-18 years'),
+                'gioitinh' => $faker->randomElement(['Nam', 'Nữ']),
+                'quequan' => $faker->city,
+                'tentaikhoan' => $user,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('tentintuc', 255);
             $table->text('tomtat');
             $table->text('path');
+            $table->text('noidung');
             $table->dateTime('ngaydang')->nullable();
             $table->string('nguoidang', 50);
             $table->foreign('nguoidang')->references('tentaikhoan')->on('users');

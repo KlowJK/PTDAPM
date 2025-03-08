@@ -45,7 +45,7 @@ class User extends Authenticatable
     // Mối quan hệ 1-n với feedbacks (nguoiphanhoi)
     public function feedbacks()
     {
-        return $this->hasMany(Feedback::class, 'nguoiphanhoi', 'tentaikhoan');
+        return $this->hasMany(Feedback::class, 'nguoigui', 'tentaikhoan');
     }
 
     // Mối quan hệ 1-n với ResearchPaper (nguoidang)
@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(News::class, 'nguoidang', 'tentaikhoan');
     }
 
+    // Mối quan hệ 1-n với Documents (nguoidang)
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'nguoidang', 'tentaikhoan');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
