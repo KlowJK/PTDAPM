@@ -15,8 +15,9 @@ return new class extends Migration
             $table->string('masinhvien', 50)->primary();
             $table->string('tensinhvien', 100);
             $table->string('khoa', 100)->nullable();
+            $table->string('lop', 100)->nullable();
             $table->string('ngaysinh', 50);
-            $table->date('ngayratruong')->nullable();
+            $table->string('gioitinh', 50);
             $table->string('quequan', 255)->nullable();
             $table->string('tentaikhoan', 50);
             $table->foreign('tentaikhoan')->references('tentaikhoan')->on('users');

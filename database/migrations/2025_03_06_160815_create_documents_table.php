@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->string('matailieu', 50)->primary();
             $table->string('tentailieu', 255);
+            $table->text('hinhanh');
             $table->text('path');
             $table->text('noidung');
             $table->dateTime('ngaydang');
             $table->string('nguoidang', 50)->nullable();
+            $table->foreign('nguoidang')->references('tentaikhoan')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });

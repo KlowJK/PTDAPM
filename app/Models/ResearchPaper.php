@@ -15,7 +15,7 @@ class ResearchPaper extends Model
     protected $primaryKey = 'mabaiviet';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['mabaiviet', 'tenbaiviet', 'noidung', 'path', 'ngaydang', 'nguoidang'];
+    protected $fillable = ['mabaiviet', 'tenbaiviet', 'mota', 'noidung', 'path', 'hinhanh', 'ngaydang', 'nguoidang'];
 
     // Mối quan hệ n-1 với Account (nguoidang)
     public function user()
