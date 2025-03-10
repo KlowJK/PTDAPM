@@ -18,6 +18,11 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="mota" class="form-label">Mô tả</label>
+                    <input type="text" class="form-control" id="mota" name="mota" value="{{ $paper->mota }}" required>
+                </div>
+
+                <div class="mb-3">
                     <label for="nguoidang" class="form-label">Người đăng</label>
                     <input type="text" class="form-control" id="nguoidang" name="nguoidang" value="{{ $paper->nguoidang }}" required>
                 </div>
@@ -35,9 +40,13 @@
                 <div class="mb-3">
                     <label for="hinhanh" class="form-label">Hình ảnh</label>
                     <input type="file" class="form-control" id="hinhanh" name="hinhanh">
-                    @if($paper->hinhanh)
-                        <img src="{{ asset('storage/' . $paper->hinhanh) }}" alt="Hình ảnh bài viết" class="img-fluid rounded mt-2" width="150">
-                    @endif
+                    <div class="mt-2">
+                        @if ($paper->hinhanh && Storage::disk('public')->exists(str_replace('storage/', '', $paper->hinhanh)))
+                            <img src="{{ asset($paper->hinhanh) }}" alt="Hình ảnh bài viết" class="img-fluid rounded" width="150">
+                        @else
+                            <img src="{{ asset('assets/images/icons/pdf_icon.jpg') }}" alt="PDF Icon" class="img-fluid rounded" width="150">
+                        @endif
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
@@ -45,4 +54,16 @@
             </form>
         </div>
     </div>
+
+    <script>
+        // Lấy ngày hôm nay
+        const today = new Date();
+        const formattedToday = today.toISOString().split('T')[0]; // Chuyển đổi sang định dạng yyyy-mm-dd
+
+        // Gán giá trị mặc định cho trường ngày đăng nếu không có giá trị
+        const ngayDangInput = document.getElementById('ngaydang');
+        if (!ngayDangInput.value) {
+            ngayDangInput.value = formattedToday;
+        }
+    </script>
 @endsection

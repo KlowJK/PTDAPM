@@ -1,16 +1,5 @@
 @extends('layouts.admin')
 @section('main')
-    @if (session('success'))
-        <div class="position-fixed top-0 start-50 translate-middle-x mt-3 z-3" style="width: 50%;">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-    @endif
-
-
-
     <div class="container-fluid">
         <!-- Tiêu đề trang -->
         <div class="d-flex align-items-center">
@@ -178,6 +167,19 @@
         </div>
     </div>
 
+    @if (session('success'))
+        <div class="toast align-items-center show" id="toast" role="alert" aria-live="assertive"
+            aria-atomic="true" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+
     <script>
         function setAction(actionUrl, method, message, buttonText, buttonClass) {
             document.getElementById('confirmForm').action = actionUrl;
@@ -220,6 +222,17 @@
                 // Không có đường dẫn ảnh, hiển thị icon mặc định
                 imageElement.src = "{{ asset('assets/images/icons/pdf-icon.png') }}";
                 imageElement.style.display = "block";
+            }
+        }
+
+
+        window.onload = function() {
+            var toast = document.getElementById('toast');
+            if (toast) {
+                toast.classList.add('show');
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3000); // 3 giây để ẩn toast
             }
         }
     </script>
