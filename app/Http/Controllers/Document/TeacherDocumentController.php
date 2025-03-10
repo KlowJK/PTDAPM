@@ -16,7 +16,10 @@ class TeacherDocumentController extends Controller
      */
     public function index()
     {
-        $document = Document::with('user')->where('nguoidang', 'wla')->get();
+        $document = Document::withTrashed()
+        ->with('user')
+        ->where('nguoidang', 'wla')
+        ->get();        
         return (view('documents.Teacher.index', compact('document')));
     }
 
@@ -128,8 +131,15 @@ class TeacherDocumentController extends Controller
      */
     public function destroy(string $id)
     {
-        $document = Document::find($id);
-        $document->delete();
-        return redirect()->route('teacher.index')->with('message', 'Xóa thành công');
+        $document = Document::withTrashed()->findOrFail($id);
+        // dd($document);
+    
+        if ($document) {
+            $document->forceDelete(); // Xóa vĩnh viễn bản ghi
+            return redirect()->route('teacher.index')->with('message', 'Xóa thành công');
+        } else {
+            return redirect()->route('teacher.index')->with('message', 'Không tìm thấy tài liệu');
+        }
+    
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.admin');
+{{-- @extends('layouts.admin');
 @php
 //    dd($documents);
     $stt = 1;
@@ -214,4 +214,4 @@
     
 @endsection
 
-
+ --}}

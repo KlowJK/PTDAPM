@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quản lý bán hàng</title>
+    <title>QQuản lý sinh viên</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" type="image/png" href="{{ url('assets/images/logos/seodashlogo.png') }}" />
     <link rel="stylesheet" href="{{url('assets/css/styles.min.css')}}" />

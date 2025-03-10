@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 @php
     // dd($document_detail)
@@ -87,4 +87,4 @@
         </div>                     
     </div>
 
-@endsection
+@endsection --}}

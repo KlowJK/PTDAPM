@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 @php
     // dd($trashDocument)   
 @endphp
@@ -96,4 +96,4 @@
             </tbody>
         </table>
         {{ $accept->links() }}
-@endsection
+@endsection --}}

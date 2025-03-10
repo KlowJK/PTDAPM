@@ -1,4 +1,4 @@
-<!-- Modal -->
+{{-- <!-- Modal -->
 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reasonModal-{{ $item->matailieu }}">
     Ẩn
 </button>
@@ -28,4 +28,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

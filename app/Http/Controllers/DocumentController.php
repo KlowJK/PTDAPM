@@ -72,6 +72,7 @@ class DocumentController extends Controller
 
             // Nếu bạn muốn lưu lại lý do ẩn, có thể cập nhật thêm vào một cột như 'reason'
             $document->reason = $request->reason;
+            $document->TrangThai = 1;
             $document->save();
 
             return redirect()->route('document.index')->with('message', 'Tài liệu đã được ẩn (xóa mềm).');

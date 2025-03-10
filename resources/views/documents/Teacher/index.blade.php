@@ -16,20 +16,20 @@
         @foreach ($document as $item)
             
         @endforeach
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#deleteModel-{{ $item->matailieu }}">
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal-{{ $item->matailieu }}">
             Thêm
             <i class="bi bi-plus-square-fill"></i>
         </button>
         
-        <div class="modal fade" id="deleteModel-{{ $item->matailieu }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $item->matailieu }}" aria-hidden="true">
+        <div class="modal fade" id="addModal-{{ $item->matailieu }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel-{{ $item->matailieu }}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModelLabel">Thêm tài liệu mới</h5>
+                        <h5 class="modal-title" id="addModalLabel">Thêm tài liệu mới</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('teacher.store') }}" class="form" method="POST">
+                        <form action="{{ route('teacher.store') }}" class="form" method="POST" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
                             <div class="mb-3">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
     <div class="teacher-main">
             <table class="table">
