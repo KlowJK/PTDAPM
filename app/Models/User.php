@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -22,7 +23,22 @@ class User extends Authenticatable
     protected $primaryKey = 'tentaikhoan';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['tentaikhoan', 'matkhau', 'vaitro', 'email'];
+    protected $fillable = ['tentaikhoan', 'password', 'vaitro', 'email', 'trangthai', 'lydokhoa', 'thoigiankhoa'];
+
+    // public function getAuthIdentifierName()
+    // {
+    //     return 'tentaikhoan';
+    // }
+
+    // public function getAuthPassword()
+    // {
+    //     return $this->matkhau;
+    // }
+
+    // public function setPasswordAttribute($matkhau)
+    // {
+    //     $this->attributes['matkhau'] = Hash::make($matkhau);
+    // }
 
     // Mối quan hệ 1-1 với Student
     public function student()

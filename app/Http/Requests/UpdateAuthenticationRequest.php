@@ -11,7 +11,7 @@ class UpdateAuthenticationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,29 @@ class UpdateAuthenticationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'tentaikhoan' => ['required', 'string', 'max:50'],
+            'password' => ['required', 'string', 'min:8', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'vaitro' => ['required', 'string', 'in:admin,student,teacher'],
+        ];
+    }
+    public  function messages()
+    {
+        return [
+            'tentaikhoan.required' => 'Tên tài khoản không được để trống',
+            'tentaikhoan.string' => 'Tên tài khoản phải là chuỗi',
+            'tentaikhoan.max' => 'Tên tài khoản không được quá 50 ký tự',
+            'password.required' => 'Mật khẩu không được để trống',
+            'password.string' => 'Mật khẩu phải là chuỗi',
+            'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự',
+            'password.max' => 'Mật khẩu không được quá 50 ký tự',
+            'email.required' => 'Email không được để trống',
+            'email.string' => 'Email phải là chuỗi',
+            'email.email' => 'Email không đúng định dạng',
+            'email.max' => 'Email không được quá 255 ký tự',
+            'vaitro.required' => 'Vai trò không được để trống',
+            'vaitro.string' => 'Vai trò phải là chuỗi',
+            'vaitro.in' => 'Vai trò không hợp lệ',
         ];
     }
 }

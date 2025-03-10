@@ -15,7 +15,7 @@ class Teacher extends Model
     protected $primaryKey = 'magiaovien';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['magiaovien', 'tengiaovien', 'khoa', 'ngaysinh', 'gioitinh', 'quequan', 'tentaikhoan'];
+    protected $fillable = ['magiaovien', 'tengiaovien', 'hinhanh', 'khoa', 'ngaysinh', 'gioitinh', 'quequan', 'tentaikhoan'];
 
     // Mối quan hệ n-1 với User
     public function user()

@@ -21,10 +21,11 @@ class UserSeeder extends Seeder
         // Tạo 50 users mẫu
         for ($i = 1; $i <= 50; $i++) {
             DB::table('users')->insert([
-                'TenTaiKhoan' => $faker->userName,
-                'MatKhau' => bcrypt('password123'), // Mã hóa mật khẩu
+                'tentaikhoan' => $faker->userName,
+                'password' => bcrypt('password123'), // Mã hóa mật khẩu
                 'vaitro' => $faker->randomElement(['admin', 'teacher', 'student']),
                 'email' => $faker->unique()->safeEmail,
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

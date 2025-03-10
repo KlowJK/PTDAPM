@@ -22,10 +22,9 @@ class NewsSeeder extends Seeder
             DB::table('news')->insert([
                 'matintuc' => 'TT' . $faker->unique()->numerify('####'),
                 'tentintuc' => $faker->sentence,
-                'tomtat' => $faker->paragraph,
+                'mota' => $faker->paragraph,
                 'path' => '/news/' . $faker->slug,
                 'noidung' => $faker->paragraphs(3, true),
-                'ngaydang' => $faker->dateTimeThisYear(),
                 'nguoidang' => $faker->randomElement($users),
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('TenTaiKhoan', 255)->primary();
-            $table->string('MatKhau', 255);
+            $table->string('tentaikhoan', 255)->primary();
+            $table->string('password', 255);
             $table->enum('vaitro', ['admin', 'teacher', 'student']);
             $table->string('email')->unique();
+            $table->enum('trangthai', ['active', 'locked'])->default('active');
+            $table->string('lydokhoa')->nullable();
+            $table->timestamp('thoigiankhoa')->nullable();
             $table->softDeletes();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
@@ -30,7 +33,8 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->string('user_id')->nullable()->index();
+            $table->foreign('user_id')->references('tentaikhoan')->on('users')->onDelete('cascade');
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');

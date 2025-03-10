@@ -14,7 +14,7 @@ class News extends Model
     protected $primaryKey = 'matintuc';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['matintuc', 'tentintuc', 'tomtat', 'path', 'noidung', 'ngaydang', 'nguoidang'];
+    protected $fillable = ['matintuc', 'tentintuc', 'mota', 'path', 'noidung', 'trangthai', 'nguoidang', 'lydotuchoi'];
 
     // Mối quan hệ n-1 với Account (nguoidang)
     public function user()
