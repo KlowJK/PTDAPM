@@ -10,17 +10,28 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center gap-2 mb-4">
                             <span>
-                                <i class="bi bi-cart check-fill fs-6"></i>
+                                <i class="bi bi-person-lines-fill fs-6"></i>
                             </span>
                             <h3 class="mb-0">Danh sách tài khoản</h3>
                         </div>
-                        <small>Cập nhật lần cuối </small>
-                        <!-- Nút Thêm sản phẩm, căn phải -->
+                        <small>Cập nhật lần cuối {{$updated_at->updated_at}}</small>
 
                         <a href="{{ route('users.create') }}" class="btn btn-primary mb-2 ms-auto d-block" style="width: max-content;">
-                            <i class="bi bi-cart-plus"></i> Thêm
+                            <i class="bi bi-person-plus"></i> Thêm tài khoản
                         </a>
-
+                        <form method="GET" action="{{ route('users.search') }}" class="form-group d-flex gap-2 align-items-center">
+                            <div class="input-group">
+                                <input
+                                    type="search"
+                                    class="form-control"
+                                    name="search"
+                                    placeholder="Tìm kiếm tài khoản..."
+                                    value="{{ request('search') }}" />
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     @if (session('success'))
                     <div class="container">
@@ -38,54 +49,91 @@
                         </div>
                     </div>
                     @endif
-                    <!-- Thêm lớp ms-auto để đẩy nút sang bên phải -->
                     <div class="ibox-content">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col" class="text-nowrap">STT</th>
-                                    <th scope="col" class="text-nowrap">Tên </th>
-                                    <th scope="col" class="text-nowrap">Trạng </th>
-                                    <th scope="col" class="text-nowrap">Ngày đặt hàng</th>
-                                    <th scope="col" colspan="4" class="text-nowrap text-center">Thao tác</th>
+                                    <th scope="col" class="text-nowrap">Tên tài khoản </th>
+                                    <th scope="col" class="text-nowrap">Vai trò</th>
+                                    <th scope="col" class="text-nowrap">Email</th>
+                                    <th scope="col" class="text-nowrap">Trạng thái</th>
+                                    <th scope="col" colspan="2" class="text-nowrap text-center">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($users as $user)
-                                <tr>
+                                <tr onclick="window.location='{{ route('users.show', $user->tentaikhoan) }}'" style="cursor: pointer;">
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $user->tentaikhoan }}</td>
-
+                                    <td>{{ $user->vaitro }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-primary">
-                                            <i class="bi bi-receipt"></i>
-                                        </a>
+                                        @if($user->trangthai == 'active')
+                                        <strong>Hoạt động</strong>
+                                        @else
+                                        <strong>Khóa</strong>
+                                        @endif
                                     </td>
-                                    <td> <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                    <td>
+                                        @if($user->trangthai == 'active')
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#lock-modal-{{ $user->tentaikhoan}}" onclick="event.stopPropagation();">
+                                            <i class="bi bi-unlock"></i>
+                                        </button>
+                                        @else
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#lock-modal-{{ $user->tentaikhoan}}" onclick="event.stopPropagation();">
+                                            <i class="bi bi-lock"></i>
+                                        </button>
+                                        @endif
                                     </td>
-                                    <td> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-{{ $user->id }}">
+                                    <td>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-{{ $user->tentaikhoan}}" onclick="event.stopPropagation();">
                                             <i class="bi bi-trash"></i>
-                                        </button></td>
-                                    <td> <a href="{{ route('users.history', $user->customer_id) }}" class="btn btn-primary">
-                                            <i class="bi bi-clock-history"></i>
-                                        </a></td>
-
-
-                                    <!-- Modal -->
-                                    <div class="modal fade " id="modal-{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        </button>
+                                    </td>
+                                    <!-- Modal Khóa -->
+                                    @if($user->trangthai == 'active')
+                                    <div class="modal fade" id="lock-modal-{{ $user->tentaikhoan}}" tabindex="-1" aria-labelledby="lockModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa đơn hàng</h1>
+                                                    <h1 class="modal-title fs-5" id="lockModalLabel">Khóa tài khoản</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form action="{{ route('users.lock', $user->tentaikhoan) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="modal-body">
+                                                        <p>Bạn có chắc chắn muốn khóa tài khoản {{ $user->tentaikhoan }} không?</p>
+                                                        <div class="mb-3">
+                                                            <label for="reason" class="form-label">Lý do khóa (bắt buộc):</label>
+                                                            <textarea class="form-control" name="reason" id="reason" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                        <button type="submit" class="btn btn-danger">Khóa</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    <!-- Modal delete -->
+                                    <div class="modal fade" id="modal-{{ $user->tentaikhoan }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa tài khoản</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Bạn có muốn xóa đơn hàng này không?
+                                                    Bạn có muốn xóa tài khoản này không?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                    <form action="{{route('users.destroy',$user->id)}}" method="POST">
+                                                    <form action="{{ route('users.destroy', $user->tentaikhoan) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Xác nhận</button>
@@ -94,7 +142,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </td>
+
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -109,6 +158,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

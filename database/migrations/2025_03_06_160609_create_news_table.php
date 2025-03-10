@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->string('matintuc', 50)->primary();
             $table->string('tentintuc', 255);
-            $table->text('tomtat');
+            $table->text('mota');
             $table->text('path');
             $table->text('noidung');
-            $table->dateTime('ngaydang')->nullable();
+            $table->enum('trangthai', ['pending', 'public', 'rejected'])->default('pending');
             $table->string('nguoidang', 50);
             $table->foreign('nguoidang')->references('tentaikhoan')->on('users');
+            $table->text('lydotuchoi')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
