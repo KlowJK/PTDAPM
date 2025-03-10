@@ -16958,3 +16958,41 @@ ul {
 .timeline-widget .timeline-item .timeline-badge.badge-primary {
   border: 2px solid #2952ff;
 }
+.ant-tag-like {
+  display: inline-block;
+  padding: 2px 8px; /* Khoảng cách đệm */
+  font-size: 12px; /* Kích thước chữ */
+  line-height: 20px; /* Chiều cao dòng */
+  background-color: #f0f0f0; /* Màu nền */
+  border: 1px solid #d9d9d9; /* Viền */
+  border-radius: 2px; /* Bo góc */
+  color: rgba(0, 0, 0, 0.85); /* Màu chữ */
+  margin-right: 8px; /* Khoảng cách giữa các tag */
+  margin-bottom: 8px; /* Khoảng cách giữa các dòng tag */
+  white-space: nowrap; /* Ngăn chữ xuống dòng */
+}
+
+/* Các kiểu tag màu sắc (tùy chọn) */
+.ant-tag-like-blue {
+  background-color: #e6f7ff;
+  border-color: #91d5ff;
+  color: #1890ff;
+}
+
+.ant-tag-like-green {
+  background-color: #f6ffed;
+  border-color: #b7eb8f;
+  color: #52c41a;
+}
+
+.ant-tag-like-red {
+  background-color: #fff1f0;
+  border-color: #ffa39e;
+  color: #f5222d;
+}
+
+.ant-tag-like-yellow {
+  background-color: #fffbe6;
+  border-color: #ffe58f;
+  color: #faad14;
+}

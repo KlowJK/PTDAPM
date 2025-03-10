@@ -33,7 +33,7 @@ class User extends Authenticatable
     // Mối quan hệ 1-1 với Teacher
     public function teacher()
     {
-        return $this->hasOne(Teacher::class, 'tentaikhoan', 'tentaikhoan');
+        return $this->hasOne(Teacher::class, 'TenTaiKhoan', 'tentaikhoan');
     }
 
     // Mối quan hệ 1-1 với Admin

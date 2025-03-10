@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('research_papers', function (Blueprint $table) {
             $table->string('mabaiviet', 50)->primary();
             $table->string('tenbaiviet', 255);
-            $table->string('mota', 255);
+            $table->text('mota', 255);
             $table->text('noidung');
             $table->text('path');
             $table->string('hinhanh', 255);

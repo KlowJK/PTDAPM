@@ -19,6 +19,6 @@ class Document extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'nguoidang', 'tentaikhoan');
+        return $this->belongsTo(User::class, 'nguoidang', 'TenTaiKhoan');
     }
 }
