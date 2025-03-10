@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Thủy Lợi News</title>
-
+    <title>Quản lý bán hàng</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" type="image/png" href="{{ url('assets/images/logos/seodashlogo.png') }}" />
     <link rel="stylesheet" href="{{url('assets/css/styles.min.css')}}" />
@@ -56,19 +54,7 @@
                             <span class="hide-menu">Thành phần</span>
                         </li>
                         <li class="sidebar-item">
-
-                            <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
-
-                                <span>
-                                    <i class="bi bi-people-fill fs-6"></i>
-                                </span>
-                                <span class="hide-menu">Quản lý tài khoản</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-
-                            <a class="sidebar-link" href="{{route('news.index')}}" aria-expanded="false">
-
+                            <a class="sidebar-link" href="#" aria-expanded="false">
                                 <span>
                                     <i class="bi bi-newspaper fs-6"></i>
                                 </span>
@@ -91,15 +77,6 @@
                                 <span class="hide-menu">Quản lý bài nghiên cứu</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
-                                <span>
-                                    <i class="bi bi-chat-fill fs-6"></i>
-                                </span>
-                                <span class="hide-menu">Quản lý phản hồi</span>
-                            </a>
-                        </li>
-
                     </ul>
                 </nav>
 
