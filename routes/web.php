@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ResearchPaperController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -20,6 +22,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+
+Route::get('/documents/hidden', [DocumentController::class, 'hiddenHistory'])->name('documents.hiddenHistory');
+
+Route::resource('documents', DocumentController::class)->parameters([
+    'documents' => 'matailieu'
+]);
+
+
+Route::patch('/documents/{matailieu}/approve', [DocumentController::class, 'approve'])->name('documents.approve');
+Route::patch('/documents/{matailieu}/hide', [DocumentController::class, 'hide'])->name('documents.hide');
+Route::post('/documents/{matailieu}/restore', [DocumentController::class, 'restore'])->name('documents.restore');
+Route::delete('/documents/{matailieu}', [DocumentController::class, 'destroy'])->name('documents.destroy');
+
+Route::resource('researchpapers', ResearchPaperController::class);
+
+
+
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::get('/search', [UserController::class, 'search'])->name('users.search');
@@ -31,3 +52,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
