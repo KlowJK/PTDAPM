@@ -56,7 +56,6 @@ class AcceptController extends Controller
     {
         $document = Document::findOrFail($id);
 
-        //Set trạng thái từ 2 sang 0 => từ duyệt qua public
         $document->trangthai = 0;
         $document->save();
 
