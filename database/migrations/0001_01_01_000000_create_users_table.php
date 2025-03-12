@@ -19,6 +19,8 @@ return new class extends Migration
             $table->enum('trangthai', ['active', 'locked'])->default('active');
             $table->string('lydokhoa')->nullable();
             $table->timestamp('thoigiankhoa')->nullable();
+            $table->string('gioithieu', 255)->nullable();
+            $table->string('sodienthoai', 50)->nullable();
             $table->softDeletes();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
