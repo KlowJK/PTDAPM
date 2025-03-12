@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password123'), // Mã hóa mật khẩu
                 'vaitro' => $faker->randomElement(['admin', 'teacher', 'student']),
                 'email' => $faker->unique()->safeEmail,
-
+                'gioithieu' => $faker->sentence,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
