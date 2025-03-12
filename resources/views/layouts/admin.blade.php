@@ -92,11 +92,19 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
+                            <a class="sidebar-link" href="{{route('feedbacks.index')}}" aria-expanded="false">
                                 <span>
                                     <i class="bi bi-chat-fill fs-6"></i>
                                 </span>
                                 <span class="hide-menu">Quản lý phản hồi</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('newsviews.index')}}" aria-expanded="false">
+                                <span>
+                                    <i class="bi bi-newspaper fs-6"></i>
+                                </span>
+                                <span class="hide-menu">Xem tin tức</span>
                             </a>
                         </li>
 

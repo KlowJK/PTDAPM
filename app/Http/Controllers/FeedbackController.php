@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Feedback;
 use App\Http\Requests\StoreFeedbackRequest;
 use App\Http\Requests\UpdateFeedbackRequest;
+use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
 {
@@ -13,7 +14,9 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        $feedbacks = Feedback::paginate(10);
+        $updated_at = Feedback::orderBy('updated_at', 'desc')->first();
+        return view('feedbacks.index', compact('feedbacks'));
     }
 
     /**
@@ -21,7 +24,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        //
+        return view('feedbacks.create');
     }
 
     /**
@@ -29,7 +32,8 @@ class FeedbackController extends Controller
      */
     public function store(StoreFeedbackRequest $request)
     {
-        //
+        $feedback = Feedback::create($request->validated());
+        return redirect()->route('feedbacks.index')->with('success', 'Feedback created successfully.');
     }
 
     /**
@@ -37,7 +41,7 @@ class FeedbackController extends Controller
      */
     public function show(Feedback $feedback)
     {
-        //
+        return view('feedbacks.show', compact('feedback'));
     }
 
     /**
@@ -45,7 +49,7 @@ class FeedbackController extends Controller
      */
     public function edit(Feedback $feedback)
     {
-        //
+        return view('feedbacks.edit', compact('feedback'));
     }
 
     /**
@@ -53,7 +57,8 @@ class FeedbackController extends Controller
      */
     public function update(UpdateFeedbackRequest $request, Feedback $feedback)
     {
-        //
+        $feedback->update($request->validated());
+        return redirect()->route('feedbacks.index')->with('success', 'Feedback updated successfully.');
     }
 
     /**
@@ -61,6 +66,33 @@ class FeedbackController extends Controller
      */
     public function destroy(Feedback $feedback)
     {
-        //
+        $feedback->delete();
+        return redirect()->route('feedbacks.index')->with('success', 'Feedback deleted successfully.');
+    }
+
+    public function storeReply(Request $request, $mathacmac)
+    {
+        // Kiểm tra tham số 'reply_content' có trong URL không
+        if (!$request->has('reply_content')) {
+            return response()->json(['error' => 'Nội dung phản hồi không được để trống!'], 400);
+        }
+
+        // Lấy nội dung phản hồi từ query string
+        $replyContent = $request->query('reply_content');
+
+        // Kiểm tra độ dài phản hồi
+        if (strlen($replyContent) > 500) {
+            return response()->json(['error' => 'Nội dung phản hồi không được quá 500 ký tự!'], 400);
+        }
+
+        // Lấy phản hồi từ CSDL
+        $feedback = Feedback::where('mathacmac', $mathacmac)->firstOrFail();
+
+        // Cập nhật phản hồi và trạng thái
+        $feedback->phanhoi = $replyContent;
+        $feedback->trangthai = 'resolved';
+        $feedback->save();
+
+        return response()->json(['success' => 'Phản hồi đã được gửi thành công!']);
     }
 }
