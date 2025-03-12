@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('path');
             $table->text('noidung');
             $table->dateTime('ngaydang');
+            $table->boolean('trangthaiduyet')->default(false); // Trạng thái duyệt
             $table->string('nguoidang', 50)->nullable();
             $table->foreign('nguoidang')->references('tentaikhoan')->on('users');
             $table->softDeletes();
