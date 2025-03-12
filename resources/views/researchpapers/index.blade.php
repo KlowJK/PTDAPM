@@ -1,6 +1,5 @@
 @extends('layouts.teacher')
 @section('main')
-
     <div class="container-fluid">
         <div class="d-flex align-items-center">
             <i class="fas fa-file-alt fa-2x me-2"></i>
@@ -31,12 +30,10 @@
                         <tr>
                             <td>{{ $loop->iteration + ($papers->currentPage() - 1) * $papers->perPage() }}</td>
                             <td>
-                                @if ($paper->hinhanh && Storage::disk('public')->exists(str_replace('storage/', '', $paper->hinhanh)))
-                                    <img src="{{ asset($paper->hinhanh) }}" alt="Hình ảnh" class="rounded" width="50">
-                                @else
-                                    <img src="{{ asset('assets/images/icons/pdf_icon.jpg') }}" alt="PDF Icon"
-                                        class="rounded" width="50">
-                                @endif
+
+                                <img src="{{ asset('assets/images/icons/pdf_icon.jpg') }}" alt="PDF Icon" class="rounded"
+                                    width="50">
+
                             </td>
                             <td>{{ $paper->tenbaiviet }}</td>
                             <td>{{ $paper->nguoidang }}</td>
@@ -159,16 +156,13 @@
             document.getElementById('paperContent').value = paperData.noidung;
 
             let imageElement = document.getElementById('paperImage');
-            if (paperData.hinhanh) {
-                imageElement.src = paperData.hinhanh.startsWith('http') ?
-                    paperData.hinhanh :
-                    "{{ asset('') }}/" + paperData.hinhanh;
-                imageElement.style.display = "block";
+            if (paperData.hinhanh &&
+                {{ json_encode(Storage::disk('public')->exists(str_replace('storage/', '', $paper->hinhanh))) }}) {
+                imageElement.src = "{{ asset('') }}" + paperData.hinhanh;
             } else {
-                // Hiển thị icon PDF mặc định
                 imageElement.src = "{{ asset('assets/images/icons/pdf_icon.jpg') }}";
-                imageElement.style.display = "block";
             }
+            imageElement.style.display = "block";
         }
 
 

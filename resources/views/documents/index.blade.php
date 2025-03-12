@@ -200,29 +200,12 @@
             document.getElementById('docStatus').value = documentData.trangthaiduyet ? "Đã duyệt" : "Chờ duyệt";
 
             let imageElement = document.getElementById('docImage');
-            if (documentData.hinhanh) {
-                // Thử tải ảnh thực tế
-                let img = new Image();
-                img.onload = function() {
-                    // Ảnh tồn tại, hiển thị ảnh thực tế
-                    imageElement.src = documentData.hinhanh.startsWith('http') ?
-                        documentData.hinhanh :
-                        `/storage/${documentData.hinhanh}`;
-                    imageElement.style.display = "block";
-                };
-                img.onerror = function() {
-                    // Ảnh không tồn tại, hiển thị icon mặc định
-                    imageElement.src = "{{ asset('assets/images/icons/pdf-icon.png') }}";
-                    imageElement.style.display = "block";
-                };
-                img.src = documentData.hinhanh.startsWith('http') ?
-                    documentData.hinhanh :
-                    `/storage/${documentData.hinhanh}`;
+            if (documentData.hinhanh && {{ json_encode(file_exists(public_path('storage/' . $document->hinhanh))) }}) {
+                imageElement.src = "{{ asset('storage/') }}" + documentData.hinhanh;
             } else {
-                // Không có đường dẫn ảnh, hiển thị icon mặc định
-                imageElement.src = "{{ asset('assets/images/icons/pdf-icon.png') }}";
-                imageElement.style.display = "block";
+                imageElement.src = "{{ asset('assets/images/icons/pdf_icon.jpg') }}";
             }
+            imageElement.style.display = "block";
         }
 
 
