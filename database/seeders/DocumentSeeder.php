@@ -27,6 +27,7 @@ class DocumentSeeder extends Seeder
                 'path' => '/documents/' . $faker->slug,
                 'noidung' => $faker->paragraphs(3, true),
                 'ngaydang' => $faker->dateTimeThisYear(),
+                'trangthaiduyet' => $faker->boolean(70),
                 'nguoidang' => $faker->randomElement($users),
                 'created_at' => now(),
                 'updated_at' => now(),
