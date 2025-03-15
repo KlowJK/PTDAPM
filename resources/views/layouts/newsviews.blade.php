@@ -274,8 +274,217 @@ Template sidebar
     .media-body h5 a:hover {
         color: #4782d3;
     }
-</style>
 
+    .footer-page {
+        background-color: #001f7f;
+        /* Màu xanh đậm */
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .footer-top {
+        background-color: #0057d8;
+        /* Màu xanh dương nhạt hơn */
+        padding: 10px 0;
+    }
+
+    .footer-top h3 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .footer-top .text-right img {
+        width: 24px;
+        height: 24px;
+        margin-left: 10px;
+    }
+
+    .footer-middle {
+        padding: 20px 0;
+    }
+
+    .footer-middle .col-md-4 img {
+        max-width: 100%;
+        border-radius: 5px;
+    }
+
+    .address {
+        font-size: 16px;
+    }
+
+    .address div {
+        margin-bottom: 5px;
+    }
+
+    .address a {
+        color: #ffcc00;
+        /* Màu vàng để làm nổi bật email */
+        text-decoration: none;
+    }
+
+    .address a:hover {
+        text-decoration: underline;
+    }
+
+    /* Reset mặc định */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    /* HEADER */
+    .section-one {
+        background: white;
+        padding: 10px 0;
+        border-bottom: 3px solid #003366;
+    }
+
+    .inner-logo img {
+        height: 60px;
+    }
+
+    .inner-content h2 {
+        text-align: right;
+        color: #003366;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* NAVIGATION */
+    /* .nav {
+        background: #003366;
+        padding: 10px 0;
+    }
+
+    .nav .inner-item {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .nav .inner-item a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .nav .inner-item a:hover {
+        color: #00aaff;
+    } */
+    .nav {
+        background: #003366;
+        /* Màu nền xanh */
+        padding: 10px 0;
+        border: 1px solid;
+    }
+
+    .nav .inner-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav .inner-item div {
+        position: relative;
+        padding: 0 15px;
+        /* Khoảng cách giữa các mục */
+    }
+
+    .nav .inner-item div:not(:last-child)::after {
+        content: "|";
+        /* Dấu gạch phân cách */
+        position: absolute;
+        right: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        /* Màu gạch phân cách */
+        font-weight: bold;
+    }
+
+    .nav .inner-item a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .nav .inner-item a:hover {
+        color: #00aaff;
+    }
+
+
+    /* SECTION TWO - Banner */
+    .section-two {
+        width: 100%;
+        background-color: #003366;
+    }
+
+    .section-two .inner-img img {
+        width: 100%;
+        display: block;
+    }
+
+    /* SECTION THREE - Các icon */
+    .section-three {
+        background: white;
+        padding: 20px 0;
+    }
+
+    .section-three .row {
+        display: flex;
+        justify-content: space-around;
+    }
+
+
+
+    .section-three .col-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .section-three .inner-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-three .inner-img img {
+        width: 40px;
+        /* Điều chỉnh kích thước ảnh */
+        height: 40px;
+        object-fit: contain;
+        /* Đảm bảo ảnh không bị méo */
+    }
+
+    .section-three .inner-title p {
+        margin-top: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #003366;
+        /* Điều chỉnh màu chữ */
+    }
+
+    .col-md-3 {
+        position: sticky;
+        top: 20px;
+        /* Khoảng cách từ đỉnh màn hình */
+        height: 100vh;
+        /* Đảm bảo nó không bị quá dài */
+        overflow-y: auto;
+        /* Cho phép cuộn nếu nội dung dài hơn */
+    }
+</style>
 
 <html lang="vi">
 
@@ -301,96 +510,210 @@ Template sidebar
     <link rel="stylesheet" href="{{url('assets/css/styles.min.css')}}" />
 </head>
 
+
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <h3 class="navbar-brand" href="#">Đại Học Thủy Lợi </h3>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tính năng</a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Liên hệ</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    @if (Route::has('login'))
-                    <nav class="-mx-3 flex flex-1 justify-end">
-                        @auth
-                        <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-                            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @if(Auth::user()->vaitro == 'admin')
-                                        <img src="{{url('assets/images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
-                                        @elseif(Auth::user()->vaitro == 'teacher')
-                                        <img src="{{url('assets/images/profile/user-2.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
-                                        @elseif(Auth::user()->vaitro == 'student')
-                                        <img src="{{url('assets/images/profile/user-3.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
-                                        @endif
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                                        <div class="message-body">
-                                            <a href="{{route('profile.edit')}}" class="d-flex align-items-center gap-2 dropdown-item">
-                                                <i class="bi bi-person-circle fs-6"></i>
-                                                <p class="mb-0 fs-3">Hồ sơ cá nhân</p>
-                                            </a>
-                                            <a href="{{ route('profile.editprofile')}}" class="d-flex align-items-center gap-2 dropdown-item">
-                                                <i class="bi bi-gear fs-6"></i>
-                                                <p class="mb-0 fs-3">Tài khoản</p>
-                                            </a>
-                                            @if(Auth::user()->vaitro == 'admin')
-                                            <a href="{{route('users.index')}}" class="d-flex align-items-center gap-2 dropdown-item">
-                                                <i class="bi bi-list-task fs-6"></i>
-                                                <p class="mb-0 fs-3">Công việc</p>
-                                            </a>
-                                            @elseif(Auth::user()->vaitro == 'teacher')
-                                            <a href="{{route('researchpapers.index')}}" class="d-flex align-items-center gap-2 dropdown-item">
-                                                <i class="bi bi-list-task fs-6"></i>
-                                                <p class="mb-0 fs-3">Công việc</p>
-                                            </a>
-                                            @endif
-
-                                            <a href="{{ route('logout') }}" class="btn btn-outline-primary mx-3 mt-2 d-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                <i class="bi bi-box-arrow-right fs-6 me-1"></i>Đăng xuất
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+        <div class="section-one">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Logo bên trái -->
+                    <div class="col-4">
+                        <div class="inner-logo">
+                            <img src="{{url('assets/images/logos/logo_cntt.png')}}" alt="">
                         </div>
-                        @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Log in
-                        </a>
+                    </div>
 
+                    <!-- Chữ ở giữa -->
+                    <div class="col-4">
+                        <div class="inner-content text-center">
+                            <h2>CHUẨN MỰC - SÁNG TẠO - TIÊN PHONG</h2>
+                        </div>
+                    </div>
 
-                        @endauth
-                    </nav>
-                    @endif
+                    <!-- Đăng nhập bên phải -->
+                    <div class="col-4">
+                        <div class="d-flex justify-content-end">
+                            @if (Route::has('login'))
+                            <nav class="flex flex-1 justify-end">
+                                @auth
+                                <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                                    <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                @if(Auth::user()->vaitro == 'admin')
+                                                <img src="{{url('assets/images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
+                                                @elseif(Auth::user()->vaitro == 'teacher')
+                                                <img src="{{url('assets/images/profile/user-2.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
+                                                @elseif(Auth::user()->vaitro == 'student')
+                                                <img src="{{url('assets/images/profile/user-3.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
+                                                @endif
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                                <div class="message-body">
+                                                    <a href="{{route('profile.edit')}}" class="d-flex align-items-center gap-2 dropdown-item">
+                                                        <i class="bi bi-person-circle fs-6"></i>
+                                                        <p class="mb-0 fs-3">Hồ sơ cá nhân</p>
+                                                    </a>
+                                                    <a href="{{ route('profile.editprofile')}}" class="d-flex align-items-center gap-2 dropdown-item">
+                                                        <i class="bi bi-gear fs-6"></i>
+                                                        <p class="mb-0 fs-3">Tài khoản</p>
+                                                    </a>
+                                                    @if(Auth::user()->vaitro == 'admin')
+                                                    <a href="{{route('users.index')}}" class="d-flex align-items-center gap-2 dropdown-item">
+                                                        <i class="bi bi-list-task fs-6"></i>
+                                                        <p class="mb-0 fs-3">Công việc</p>
+                                                    </a>
+                                                    @elseif(Auth::user()->vaitro == 'teacher')
+                                                    <a href="{{route('researchpapers.index')}}" class="d-flex align-items-center gap-2 dropdown-item">
+                                                        <i class="bi bi-list-task fs-6"></i>
+                                                        <p class="mb-0 fs-3">Công việc</p>
+                                                    </a>
+                                                    @endif
+                                                    <a href="{{ route('logout') }}" class="btn btn-outline-primary mx-3 mt-2 d-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                        <i class="bi bi-box-arrow-right fs-6 me-1"></i>Đăng xuất
+                                                    </a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                @else
+                                <a href="{{ route('login') }}"
+                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                    Đăng nhập
+                                </a>
+                                @endauth
+                            </nav>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </div>
+
+        <div class="section-two">
+            <nav class="nav">
+                <div class="container">
+                    <div class="inner-item d-flex justify-content-around">
+                        <div><a href="#"><i class="fa-solid fa-house"></i></a></div>
+                        <div><a href="#">GIỚI THIỆU</a></div>
+                        <div><a href="#">TIN TỨC & THÔNG BÁO</a></div>
+                        <div><a href="#">TUYỂN SINH</a></div>
+                        <div><a href="#">ĐÀO TẠO </a></div>
+                        <div><a href="#">NGHIÊN CỨU</a></div>
+                        <div><a href="#">ĐỐI NGOẠI</a></div>
+                        <div><a href="#">VĂN BẢN</a></div>
+                        <div><a href="#">SINH VIÊN</a></div>
+                        <div><a href="#">LIÊN HỆ</a></div>
+                    </div>
+                </div>
+            </nav>
+            <div>
+                <div class="container">
+                    <div class="inner-img">
+                        <img src="assets\images\newsview\web1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="section-three container pb50">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\tuyen_sinh.png" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>Tuyển sinh</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\65_64x40.png" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>65 Năm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\viec_lam.png" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>Thông tin việc làm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\quality.jpg" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>Đảm bảo chất lượng</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\www.jpg" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>Tạp chí</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\email.jpg" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>TLU Mail</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\lichcongtac.jpg" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>Lịch công tác</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="inner-item">
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\user.jpg" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>Đăng ký học</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </header>
 
-    <br><br>
 
+    <hr>
     <div class="container pb50">
         <div class="row">
             <div class="col-md-9 mb40">
@@ -398,105 +721,13 @@ Template sidebar
                     <div class="post-content">
                         @yield('content')
 
-                        <ul class="list-inline share-buttons">
-                            <li class="list-inline-item">Chia sẻ bài viết:</li>
-                            <li class="list-inline-item">
-                                <a href="#" class="social-icon-sm si-dark si-colored-facebook si-gray-round">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="social-icon-sm si-dark si-colored-twitter si-gray-round">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="social-icon-sm si-dark si-colored-linkedin si-gray-round">
-                                    <i class="fab fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
 
-                        <hr class="mb40">
-                        <h4 class="mb40 text-uppercase font500">Về tác giả</h4>
-                        @yield('author')
-
-                        <div class="media mb40">
-                            <i class="d-flex mr-3 fas fa-user-circle fa-5x text-primary"></i>
-                            <div class="media-body">
-                                <h5 class="mt-0 font700">Jane Doe</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            </div>
-                        </div>
-
-                        <hr class="mb40">
-                        <h4 class="mb40 text-uppercase font500">Bình luận</h4>
-
-                        <div class="media m50 d-flex align-items-center">
-                            <i class="fas fa-user-circle fa-3x text-primary mr-3 mb-9"></i>
-                            <div class="media-body">
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="mt-0 font-weight-bold d-inline-block ">Jane Doe</h5>
-                                    <a href="#" class="btn btn-outline-primary btn-sm float-right">Trả lời</a>
-                                </div>
-                                <p class="text-muted mt-2">Nulla vel metus scelerisque ante sollicitudin.</p>
-                            </div>
-                        </div>
-                        <div class="media m50 d-flex align-items-center">
-                            <i class="fas fa-user-circle fa-3x text-primary mr-3 mb-9"></i>
-                            <div class="media-body">
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="mt-0 font-weight-bold d-inline-block ">Anna</h5>
-                                    <a href="#" class="btn btn-outline-primary btn-sm float-right">Trả lời</a>
-                                </div>
-                                <p class="text-muted mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores maxime placeat voluptatibus praesentium consequatur, quae mollitia totam at quisquam numquam debitis facilis exercitationem. Voluptatibus explicabo nobis odio sint asperiores!</p>
-                            </div>
-                        </div>
-                        <div class="media m50 d-flex align-items-center">
-                            <i class="fas fa-user-circle fa-3x text-primary mr-3 mb-9"></i>
-                            <div class="media-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mt-0 font-weight-bold d-inline-block">Bean kep</h5>
-                                    <a href="#" class="btn btn-outline-primary btn-sm">Trả lời</a>
-                                </div>
-                                <p class="text-muted mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, in, sapiente, laudantium commodi assumenda ex laboriosam non autem doloremque unde saepe culpa debitis sequi incidunt omnis iusto aut rerum quam.</p>
-                            </div>
-                        </div>
-
-                        <hr class="mb40">
-                        <h4 class="mb40 text-uppercase font500">Đăng bình luận</h4>
-                        <form role="form">
-                            <div class="form-group">
-                                <label>Tên</label>
-                                <input type="text" class="form-control" placeholder="John Doe">
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" placeholder="john@doe.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Bình luận</label>
-                                <textarea class="form-control" rows="5" placeholder="Bình luận"></textarea>
-                            </div>
-                            <div class="clearfix float-right">
-                                <button type="button" class="btn btn-primary btn-lg">Gửi</button>
-                            </div>
-                        </form>
                     </div>
                 </article>
             </div>
 
             <div class="col-md-3 mb40">
-                <div class="mb40">
-                    <form>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-describedby="basic-addon2">
-                            <button class="input-group-addon btn btn-primary" id="basic-addon2">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+
 
                 <div>
                     <h4 class="sidebar-title">Tin tức mới nhất</h4>
@@ -505,79 +736,66 @@ Template sidebar
                     </ul>
                 </div>
 
-                <div class="mb40">
-                    <h4 class="sidebar-title">Danh mục</h4>
-                    <ul class="list-unstyled categories">
-                        <li><a href="#">Thuê</a></li>
-                        <li><a href="#">Bán</a></li>
-                        <li class="active">
-                            <a href="#">Căn hộ</a>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Văn phòng</a></li>
-                                <li><a href="#">Kho</a></li>
-                                <li><a href="#">Nhà để xe</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Đánh giá cao nhất</a></li>
-                        <li><a href="#">Xu hướng</a></li>
-                        <li><a href="#">Bất động sản mới nhất</a></li>
-                    </ul>
-                </div>
+
             </div>
         </div>
     </div>
 
 </body>
-<footer class="bg-light text-center text-lg-start">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Footer Content</h5>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Quisque scelerisque diam non nisi semper, et elementum lorem ornare.
-                </p>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Links</h5>
-                <ul class="list-unstyled mb-0">
-                    <li>
-                        <a href="#!" class="text-dark">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 4</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-0">Links</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#!" class="text-dark">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-dark">Link 4</a>
-                    </li>
-                </ul>
+<!-- footer -->
+<footer class="footer-page">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-left">
+                    <h3 style="color: white;"><span id="dnn_dnnCopyright_lblCopyright" class="SkinObject">© 2025 TRƯỜNG ĐẠI HỌC THỦY LỢI</span>
+                    </h3>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="#" class="social-icon-sm si-dark si-colored-facebook si-gray-round" style="color: white;">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="social-icon-sm si-dark si-colored-twitter si-gray-round" style="color: white;">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-icon-sm si-dark si-colored-linkedin si-gray-round" style="color: white;"></a>
+                    <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="text-center p-3" style="background-color: rgba(169, 109, 109, 0.2);">
-        © 2025 Copyright:
-        <a class="text-dark" href="#">YourWebsite.com</a>
-    </div>
+    </div><!-- /.footer-top -->
+    <div class="footer-middle">
+        <div class="container">
+            <div id="dnn_footerPane">
+                <div class="DnnModule DnnModule-DNN_HTML DnnModule-1517"><a name="1517"></a>
+                    <div class="DNNContainer_noTitle">
+                        <div id="dnn_ctr1517_ContentPane"><!-- Start_Module_1517 -->
+                            <div id="dnn_ctr1517_ModuleContent" class="DNNModuleContent ModDNNHTMLC">
+                                <div id="dnn_ctr1517_HtmlModule_lblContent" class="Normal">
+                                    <div class="row">
+                                        <div class="col-md-4"><a href="#" target="_blank"><img alt="Image" src="{{ url('assets/images/newsview/TLU-map.png') }}" /> </a></div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="address">
+                                                        <div style="font-size:25px;margin-bottom:15px">TRƯỜNG ĐẠI HỌC THỦY LỢI</div>
+
+                                                        <div>Địa chỉ: 175 Tây Sơn, Đống Đa, Hà Nội</div>
+
+                                                        <div>Điện thoại: (024) 38522201 - Fax: (024) 35633351</div>
+
+                                                        <div>Email: phonghcth@tlu.edu.vn</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- /.footer-middle -->
 </footer>
 <script src="{{url('assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
@@ -586,5 +804,6 @@ Template sidebar
 <script src="{{url('assets/js/sidebarmenu.js')}}"></script>
 <script src="{{url('assets/js/app.min.js')}}"></script>
 <script src="{{url('assets/js/dashboard.js')}}"></script>
+<!-- footer -->
 
 </html>

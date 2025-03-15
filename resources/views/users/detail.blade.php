@@ -56,7 +56,8 @@
                                     @endif
                                 </div>
                             </div>
-                            <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
+                            <div class="d-flex justify-content-end gap-2"> <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a></div>
+
                         </div>
                     </div>
                 </div>

@@ -46,8 +46,7 @@ class ResearchPaperController extends Controller
             'path' => $path,
             'hinhanh' => $hinhanh,
             'ngaydang' => $request->ngaydang ?: now(),
-            'nguoidang' => 'bao94',
-            //  Auth::user()->tentaikhoan,
+            'nguoidang' => Auth::user()->tentaikhoan,
         ]);
 
         return redirect()->route('researchpapers.index')->with('success', 'Bài viết đã được đăng.');
@@ -77,6 +76,7 @@ class ResearchPaperController extends Controller
      */
     public function update(UpdateResearchPaperRequest $request, $mabaiviet)
     {
+
         $paper = ResearchPaper::findOrFail($mabaiviet);
 
         $data = $request->validated();
@@ -101,6 +101,7 @@ class ResearchPaperController extends Controller
     public function destroy($mabaiviet)
     {
         //
+
         $paper = ResearchPaper::findOrFail($mabaiviet);
         Storage::delete([$paper->path, $paper->hinhanh]);
         $paper->delete();

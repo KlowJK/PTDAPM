@@ -4,7 +4,7 @@
 @section('main')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8 offset-lg-2">
             <div class="card">
                 <div class="card-body">
                     <h3 class="mb-4">Xem Thắc mắc</h3>
@@ -74,7 +74,9 @@
                 Gửi phản hồi thành công!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    <a href="{{ route('feedbacks.index') }}" class="text-white">Đóng</a>
+                </button>
             </div>
         </div>
     </div>
