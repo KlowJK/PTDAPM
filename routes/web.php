@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     route::get('/editpassword', [PasswordController::class, 'edit'])->name('password.edit');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::get('/search', [UserController::class, 'search'])->name('users.search');
     Route::patch('/users/{tentaikhoan}/lock', [UserController::class, 'lock'])->name('users.lock');
@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('feedbacks', FeedbackController::class);
     Route::get('/feedbacks/{mathacmac}/reply', [FeedbackController::class, 'storeReply'])->name('feedbacks.storeReply');
+    Route::post('/newsviews/{id}/comment', [FeedbackController::class, 'store'])->name('newsviews.comment');
 
 
     Route::get('/documents/hidden', [DocumentController::class, 'hiddenHistory'])->name('documents.hiddenHistory');
@@ -51,19 +52,10 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'teacher'])->group(function () {
     Route::resource('researchpapers', ResearchPaperController::class);
     Route::resource('documentteacher', DocumentTeacherController::class);
 });
-
-Route::patch('/documents/{matailieu}/approve', [DocumentController::class, 'approve'])->name('documents.approve');
-Route::post('/documents/{matailieu}/hide', [DocumentController::class, 'hide'])->name('documents.hide');
-Route::post('/documents/{matailieu}/restore', [DocumentController::class, 'restore'])->name('documents.restore');
-Route::delete('/documents/{matailieu}', [DocumentController::class, 'destroy'])->name('documents.destroy');
-
-
-
-
 
 Route::get('/newsviews', [NewsViewController::class, 'index'])->name('newsviews.index');
 

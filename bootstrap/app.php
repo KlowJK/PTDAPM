@@ -19,12 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
             CheckLockedAccount::class,
         ]);
         $middleware->alias([
-            'admin' => [
-                AdminMiddleware::class,
-            ],
-            'teacher' => [
-                TeacherMiddleware::class,
-            ],
+            'admin' => AdminMiddleware::class,
+            'teacher' => TeacherMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

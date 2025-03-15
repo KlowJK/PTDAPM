@@ -28,14 +28,18 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <h3 class="navbar-brand" href="#">Đại Học Thủy Lợi </h3>
+                <div>
+                    <div class="inner-logo">
+                        <img src="{{url('assets/images/logos/logo_cntt.png')}}" alt="" style="width: 300px;">
+                    </div>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('newsviews.index')}}">Trang chủ</a>
                         </li>
                     </ul>
                 </div>

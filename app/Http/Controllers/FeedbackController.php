@@ -6,6 +6,8 @@ use App\Models\Feedback;
 use App\Http\Requests\StoreFeedbackRequest;
 use App\Http\Requests\UpdateFeedbackRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
@@ -30,11 +32,7 @@ class FeedbackController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFeedbackRequest $request)
-    {
-        $feedback = Feedback::create($request->validated());
-        return redirect()->route('feedbacks.index')->with('success', 'Feedback created successfully.');
-    }
+
 
     /**
      * Display the specified resource.
@@ -69,6 +67,24 @@ class FeedbackController extends Controller
         $feedback->delete();
         return redirect()->route('feedbacks.index')->with('success', 'Feedback deleted successfully.');
     }
+    public function store(Request $request, $id)
+    {
+        $request->validate([
+            'nguoigui' => 'required|string|max:255',
+            'noidung' => 'required|string',
+        ]);
+
+        Feedback::create([
+            'mathacmac' => Str::uuid()->toString(),
+            'nguoigui' => Auth::user()->tentaikhoan,  // Lấy từ tài khoản đăng nhập
+            'noidung' => $request->noidung,
+            'mabaiviet' => $id,
+            'ngaythacmac' => now(),
+            'trangthai' => 'pending',
+        ]);
+
+        return redirect()->back()->with('success', 'Bình luận đã được gửi thành công!');
+    }
 
     public function storeReply(Request $request, $mathacmac)
     {
@@ -91,6 +107,8 @@ class FeedbackController extends Controller
         // Cập nhật phản hồi và trạng thái
         $feedback->phanhoi = $replyContent;
         $feedback->trangthai = 'resolved';
+        $feedback->ngayphanhoi = now();
+        $feedback->nguoiphanhoi = Auth::user()->tentaikhoan;
         $feedback->save();
 
         return response()->json(['success' => 'Phản hồi đã được gửi thành công!']);

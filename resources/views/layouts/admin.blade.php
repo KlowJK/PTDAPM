@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Thủy Lợi News</title>
+    <title>Khoa công nghệ thông tin</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" type="image/png" href="{{url('assets/images/logos/dhtl.png')}}" />
@@ -40,21 +40,21 @@
                                 <span class="hide-menu">Trang chủ</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('dashboard')}}" aria-expanded="false">
                                 <span>
                                     <i class="bi bi-speedometer2 fs-6"></i>
                                 </span>
                                 <span class="hide-menu">Bảng điều khiển</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-small-cap">
                             <i class="bi bi-gear-fill nav-small-cap-icon fs-6"></i>
                             <span class="hide-menu">Quản lý</span>
                         </li>
                         <li class="sidebar-item">
 
-                            <a class="sidebar-link" href="{{-- {{route('users.index')}} --}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
 
                                 <span>
                                     <i class="bi bi-people-fill fs-6"></i>
@@ -63,9 +63,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-
-                            <a class="sidebar-link" href="{{-- {{route('news.index')}} --}}" aria-expanded="false">
-
+                            <a class="sidebar-link" href="{{route('news.index')}}" aria-expanded="false">
                                 <span>
                                     <i class="bi bi-newspaper fs-6"></i>
                                 </span>

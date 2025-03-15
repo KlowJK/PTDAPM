@@ -25,7 +25,7 @@
                                     type="search"
                                     class="form-control"
                                     name="search"
-                                    placeholder="Tìm kiếm ..."
+                                    placeholder="Tìm kiếm tin tức..."
                                     value="{{ request('search') }}" />
                                 <button class="btn btn-outline-secondary" type="submit">
                                     <i class="bi bi-search"></i>
