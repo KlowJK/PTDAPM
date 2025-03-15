@@ -14,6 +14,7 @@ use App\Models\News;
 
 Route::get('/', [NewsViewController::class, 'index']);
 
+
 Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('feedbacks', FeedbackController::class);
     Route::get('/feedbacks/{mathacmac}/reply', [FeedbackController::class, 'storeReply'])->name('feedbacks.storeReply');
 
+
     Route::get('/documents/hidden', [DocumentController::class, 'hiddenHistory'])->name('documents.hiddenHistory');
     Route::resource('documents', DocumentController::class)->parameters([
         'documents' => 'matailieu'
@@ -48,10 +50,16 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
 Route::middleware('auth')->group(function () {
     Route::resource('researchpapers', ResearchPaperController::class);
     Route::resource('documentteacher', DocumentTeacherController::class);
 });
+
+Route::patch('/documents/{matailieu}/approve', [DocumentController::class, 'approve'])->name('documents.approve');
+Route::post('/documents/{matailieu}/hide', [DocumentController::class, 'hide'])->name('documents.hide');
+Route::post('/documents/{matailieu}/restore', [DocumentController::class, 'restore'])->name('documents.restore');
+Route::delete('/documents/{matailieu}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 
 
 

@@ -1,14 +1,6 @@
 @extends('layouts.teacher')
 
 @section('main')
-    @if (session('success'))
-        <div class="position-fixed top-0 start-50 translate-middle-x mt-3 z-3" style="width: 50%;">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-    @endif
 
     <div class="container-fluid">
         <div class="d-flex align-items-center mb-3">
@@ -16,16 +8,6 @@
             <h2 class="mb-0">Thêm bài viết nghiên cứu</h2>
         </div>
 
-        <!-- Hiển thị lỗi validation -->
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <div class="card shadow-sm p-4">
             <form id="paperForm" action="{{ route('researchpapers.store') }}" method="POST" enctype="multipart/form-data">
@@ -68,23 +50,20 @@
                     @enderror
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label fw-bold">Tải lên tài liệu</label>
-                        <input type="file" name="path" class="form-control @error('path') is-invalid @enderror">
-                        @error('path')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label fw-bold">Hình ảnh minh họa</label>
-                        <input type="file" name="hinhanh" class="form-control @error('hinhanh') is-invalid @enderror"
-                            accept="image/*" onchange="previewImage(event)">
-                        <img id="imagePreview" class="img-thumbnail mt-2" width="100" style="display:none;">
-                        @error('hinhanh')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Tải lên tài liệu</label>
+                    <input type="file" name="path" class="form-control @error('path') is-invalid @enderror" required>
+                    @error('path')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Hình ảnh minh họa</label>
+                    <input type="file" name="hinhanh" class="form-control @error('hinhanh') is-invalid @enderror" accept="image/*" required>
+                    @error('hinhanh')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="row mb-3">

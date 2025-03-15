@@ -28,6 +28,7 @@ class DocumentSeeder extends Seeder
                 'noidung' => $faker->paragraphs(3, true),
                 'ngaydang' => $faker->dateTimeThisYear(),
                 'trangthaiduyet' => $faker->boolean(70),
+                'lydoan' => $faker->optional()->sentence,
                 'nguoidang' => $faker->randomElement($users),
                 'created_at' => now(),
                 'updated_at' => now(),

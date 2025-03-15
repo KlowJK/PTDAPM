@@ -54,7 +54,7 @@
                         </li>
                         <li class="sidebar-item">
 
-                            <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{-- {{route('users.index')}} --}}" aria-expanded="false">
 
                                 <span>
                                     <i class="bi bi-people-fill fs-6"></i>
@@ -64,7 +64,7 @@
                         </li>
                         <li class="sidebar-item">
 
-                            <a class="sidebar-link" href="{{route('news.index')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{-- {{route('news.index')}} --}}" aria-expanded="false">
 
                                 <span>
                                     <i class="bi bi-newspaper fs-6"></i>
