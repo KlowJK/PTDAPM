@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SeoDash Free Bootstrap Admin Template by Adminmart</title>
-    <link rel="shortcut icon" type="image/png" href="{{url('assets/images/logos/seodashlogo.png')}}" />
+    <title>Đăng nhập</title>
+    <link rel="shortcut icon" type="image/png" href="{{url('assets/images/logos/dhtl.png')}}" />
     <link rel="stylesheet" href="{{url('assets/css/styles.min.css')}}" />
 </head>
 
@@ -21,9 +21,8 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                    <img src="{{url('assets/images/logos/logo-light.svg')}}" alt="">
+                                    <img src="{{url('assets/images/logos/logo_cntt.png')}}" alt="" style="width: 300px;">
                                 </a>
-                                <p class="text-center">Chiến dịch xã hội của bạn</p>
 
                                 <!-- Session Status -->
                                 @if (session('status'))
