@@ -88,6 +88,23 @@
                                                             </div>
                                                         </div>
 
+                                                        @if (session('status'))
+                                                        <div class="container">
+                                                            <div class="alert alert-success  alert-dismissible" role="alert">
+                                                                {{ session('status') }}
+                                                                <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                        @if (session('error'))
+                                                        <div class="container">
+                                                            <div class="alert alert-danger  alert-dismissible" role="alert">
+                                                                {{ session('error') }}
+                                                                <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+                                                            </div>
+                                                        </div>
+                                                        @endif
+
                                                         @if($user->vaitro == 'admin')
                                                         <div class="row mb-3">
                                                             <label for="maquantri" class="col-md-4 col-lg-3 col-form-label">Mã quản trị</label>

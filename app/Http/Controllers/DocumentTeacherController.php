@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,13 +35,15 @@ class DocumentTeacherController extends Controller
             'hinhanh' => 'nullable|image|mimes:jpeg,png,gif|max:2048',
             'path' => 'nullable|mimes:pdf,doc,docx|max:5120',
             'noidung' => 'nullable|string',
+
         ]);
 
         $documents = new Document();
         $documents->matailieu = $request->matailieu;
         $documents->tentailieu = $request->tentailieu;
-        $documents->nguoidang = 'ly96'; // Gán giá trị cố định
+        $documents->nguoidang = Auth::user()->tentaikhoan;
         $documents->noidung = $request->noidung;
+        $documents->ngaydang = now();
 
         if ($request->hasFile('hinhanh')) {
             $path = $request->file('hinhanh')->store('uploads/hinhanh', 'public');

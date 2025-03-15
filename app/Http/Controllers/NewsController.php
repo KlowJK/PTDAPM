@@ -18,7 +18,7 @@ class NewsController extends Controller
     public function index()
     {
         //
-        $news = News::paginate(10);
+        $news = News::orderBy('updated_at', 'desc')->paginate(10);
         $updated_at = News::orderBy('updated_at', 'desc')->first();
         return view('news.index', compact('news', 'updated_at'));
     }
@@ -82,9 +82,9 @@ class NewsController extends Controller
             // Create the news record
             News::create($data);
 
-            return redirect()->route('news.index')->with('success', 'Bài viết đã được lưu thành công!');
+            return redirect()->route('news.index')->with('success', 'Tin tức đã được lưu thành công!');
         } catch (\Exception $e) {
-            return redirect()->route('news.index')->with('error', 'Không thể lưu bài viết. Vui lòng thử lại sau.');
+            return redirect()->route('news.index')->with('error', 'Không thể lưu tin tức. Vui lòng thử lại sau.');
         }
     }
 
@@ -134,7 +134,7 @@ class NewsController extends Controller
         // Lưu các thay đổi vào database
         $news->save();
 
-        return redirect()->route('news.index')->with('success', 'Bài viết đã được cập nhật thành công!');
+        return redirect()->route('news.index')->with('success', 'Tin tức đã được cập nhật thành công!');
     }
 
 
@@ -154,9 +154,9 @@ class NewsController extends Controller
                 $news->lydotuchoi = $request->reason;
                 $news->save();
             }
-            return redirect()->route('news.index')->with('success', 'Bài viết đã bị từ chối.');
+            return redirect()->route('news.index')->with('success', 'Tin tức đã bị từ chối.');
         } catch (\Exception $e) {
-            return redirect()->route('news.index')->with('error', 'Không thể từ chối bài viết. Vui lòng thử lại sau.');
+            return redirect()->route('news.index')->with('error', 'Không thể từ chối tin tức. Vui lòng thử lại sau.');
         }
     }
 
@@ -168,9 +168,9 @@ class NewsController extends Controller
             $news->trangthai = 'public';
             $news->lydotuchoi = null;
             $news->save();
-            return redirect()->route('news.index')->with('success', 'Bài viết đã được duyệt.');
+            return redirect()->route('news.index')->with('success', 'Tin tức đã được duyệt.');
         } catch (\Exception $e) {
-            return redirect()->route('news.index')->with('error', 'Không thể duyệt bài viết. Vui lòng thử lại sau.');
+            return redirect()->route('news.index')->with('error', 'Không thể duyệt tin tức. Vui lòng thử lại sau.');
         }
     }
 

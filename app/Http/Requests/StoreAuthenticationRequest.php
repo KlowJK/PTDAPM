@@ -24,7 +24,7 @@ class StoreAuthenticationRequest extends FormRequest
         return [
             'tentaikhoan' => ['required', 'string', 'max:50'],
             'password' => ['required', 'string', 'min:8', 'max:50'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'regex:/^[a-zA-Z0-9._%+-]+@e\.tlu\.edu\.vn$/'],
             'vaitro' => ['required', 'string', 'in:admin,student,teacher'],
         ];
     }
@@ -42,9 +42,11 @@ class StoreAuthenticationRequest extends FormRequest
             'email.string' => 'Email phải là chuỗi',
             'email.email' => 'Email không đúng định dạng',
             'email.max' => 'Email không được quá 255 ký tự',
+            'email.regex' => 'Email phải có định dạng @e.tlu.edu.vn',
             'vaitro.required' => 'Vai trò không được để trống',
             'vaitro.string' => 'Vai trò phải là chuỗi',
             'vaitro.in' => 'Vai trò không hợp lệ',
+
         ];
     }
 }

@@ -1,13 +1,12 @@
 @extends('layouts.teacher')
-
-@section('title', 'Quản lý bài viết nghiên cứu')
 @section('main')
-
-
 <div class="container-fluid">
+    <div class="d-flex align-items-center">
+        <i class="fas fa-file-alt fa-2x me-2"></i>
+        <h2 class="mb-0">Quản lý bài viết nghiên cứu</h2>
+    </div>
 
     <div class="card shadow-sm p-4">
-
         <div class="d-flex align-items-center">
             <h5 class="fw-bold mb-3">
                 <i class="fas fa-list"></i> Danh sách bài viết
@@ -16,49 +15,52 @@
         </div>
 
         <table class="table table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Hình ảnh</th>
-                        <th>Tên bài viết</th>
-                        <th>Người đăng</th>
-                        <th>Ngày đăng</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($papers as $paper)
-                        <tr>
-                            <td>{{ $loop->iteration + ($papers->currentPage() - 1) * $papers->perPage() }}</td>
-                            <td>
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên bài viết</th>
+                    <th>Người đăng</th>
+                    <th>Ngày đăng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($papers as $paper)
+                <tr>
+                    <td>{{ $loop->iteration + ($papers->currentPage() - 1) * $papers->perPage() }}</td>
+                    <td>
+                        @if ($paper->hinhanh && Storage::disk('public')->exists($paper->hinhanh))
+                        <img src="{{ asset('storage/' . $paper->hinhanh) }}" alt="Hình ảnh" class="rounded" width="50" onerror="this.src='{{ asset('assets/images/icons/pdf_icon.jpg') }}'">
+                        @else
+                        <img src="{{ asset('assets/images/icons/pdf_icon.jpg') }}" alt="PDF Icon"
+                            class="rounded" width="50">
+                        @endif
 
-                                <img src="{{ asset('assets/images/icons/pdf_icon.jpg') }}" alt="PDF Icon" class="rounded"
-                                    width="50">
-
-                            </td>
-                            <td>{{ $paper->tenbaiviet }}</td>
-                            <td>{{ $paper->nguoidang }}</td>
-                            <td>{{ $paper->ngaydang }}</td>
-                            <td>
-                                <div class="d-flex">
-                                    <a href="{{ route('researchpapers.edit', $paper->mabaiviet) }}"
-                                        class="btn btn-sm btn-warning me-2">✏ Sửa</a>
-                                    <button type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal"
-                                        data-bs-target="#confirmModal"
-                                        onclick="setAction('{{ route('researchpapers.destroy', $paper->mabaiviet) }}', 'DELETE', 'Bạn có chắc chắn muốn xóa bài viết này?', 'Xóa', 'btn-danger')">
-                                        🗑 Xóa
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-info ms-2" data-bs-toggle="modal"
-                                        data-bs-target="#viewPaperModal"
-                                        onclick="setViewDetails({{ json_encode($paper) }})">
-                                        📄 Xem chi tiết
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </td>
+                    <td>{{ $paper->tenbaiviet }}</td>
+                    <td>{{ $paper->nguoidang }}</td>
+                    <td>{{ $paper->ngaydang }}</td>
+                    <td>
+                        <div class="d-flex">
+                            <a href="{{ route('researchpapers.edit', $paper->mabaiviet) }}"
+                                class="btn btn-sm btn-warning me-2">✏ Sửa</a>
+                            <button type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal"
+                                data-bs-target="#confirmModal"
+                                onclick="setAction('{{ route('researchpapers.destroy', $paper->mabaiviet) }}', 'DELETE', 'Bạn có chắc chắn muốn xóa bài viết này?', 'Xóa', 'btn-danger')">
+                                🗑 Xóa
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info ms-2" data-bs-toggle="modal"
+                                data-bs-target="#viewPaperModal"
+                                onclick="setViewDetails({{ json_encode($paper) }})">
+                                📄 Xem chi tiết
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
         <div class="d-flex justify-content-center">
             {{ $papers->links() }}
         </div>
@@ -98,14 +100,10 @@
                         <label class="form-label"><strong>Nội dung:</strong></label>
                         <textarea class="form-control" id="paperContent" rows="4" readonly></textarea>
                     </div>
-                    <div class="mb-3 text-center">
-                        <img id="paperImage" src="" alt="Hình ảnh bài viết" class="img-fluid rounded">
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-
             </div>
         </div>
     </div>
@@ -156,26 +154,6 @@
         document.getElementById('paperDate').value = paperData.ngaydang;
         document.getElementById('paperPath').value = paperData.path;
         document.getElementById('paperContent').value = paperData.noidung;
-
-    <script>
-        function setViewDetails(paperData) {
-            document.getElementById('paperId').value = paperData.mabaiviet;
-            document.getElementById('paperName').value = paperData.tenbaiviet;
-            document.getElementById('paperUploader').value = paperData.nguoidang;
-            document.getElementById('paperDate').value = paperData.ngaydang;
-            document.getElementById('paperPath').value = paperData.path;
-            document.getElementById('paperContent').value = paperData.noidung;
-
-            let imageElement = document.getElementById('paperImage');
-            if (paperData.hinhanh &&
-                {{ json_encode(Storage::disk('public')->exists(str_replace('storage/', '', $paper->hinhanh))) }}) {
-                imageElement.src = "{{ asset('') }}" + paperData.hinhanh;
-            } else {
-                imageElement.src = "{{ asset('assets/images/icons/pdf_icon.jpg') }}";
-            }
-
-            imageElement.style.display = "block";
-        }
     }
 
 
