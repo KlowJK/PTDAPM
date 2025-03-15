@@ -63,8 +63,8 @@
                                             </button>
                                         @endif
                                         <button type="button" class="btn btn-sm btn-warning me-2" data-bs-toggle="modal"
-                                            data-bs-target="#confirmModal"
-                                            onclick="setAction('{{ route('documents.hide', $document->matailieu) }}', 'PATCH', 'Bạn có chắc chắn muốn ẩn tài liệu này?', 'Ẩn', 'btn-warning')">
+                                            data-bs-target="#reasonModal"
+                                            onclick="setAction('{{ route('documents.hide', $document->matailieu) }}', 'POST', 'Bạn có chắc chắn muốn ẩn tài liệu này?', 'Ẩn', 'btn-warning')">
                                             🚫 Ẩn
                                         </button>
 
@@ -167,6 +167,34 @@
         </div>
     </div>
 
+    <!-- Modal Nhập Lý Do -->
+    <div class="modal fade" id="reasonModal" tabindex="-1" aria-labelledby="reasonModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="reasonForm" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" id="reasonMethodInput" value="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reasonModalLabel">Nhập lý do ẩn tài liệu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="document_id" id="documentId">
+                        <div class="mb-3">
+                            <label for="lydoan" class="form-label">Lý do ẩn:</label>
+                            <textarea class="form-control" id="lydoan" name="lydoan" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning">Xác nhận</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     @if (session('success'))
         <div class="toast align-items-center show" id="toast" role="alert" aria-live="assertive"
             aria-atomic="true" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
@@ -182,12 +210,22 @@
 
     <script>
         function setAction(actionUrl, method, message, buttonText, buttonClass) {
-            document.getElementById('confirmForm').action = actionUrl;
-            document.getElementById('methodInput').value = method;
-            document.getElementById('confirmMessage').textContent = message;
-            const confirmButton = document.getElementById('confirmButton');
-            confirmButton.textContent = buttonText;
-            confirmButton.className = "btn " + buttonClass;
+            if (buttonText === 'Ẩn') {
+                document.getElementById('reasonForm').action = actionUrl;
+                document.getElementById('reasonMethodInput').value = method;
+                // Gán matailieu vào documentId từ actionUrl
+                const matailieu = actionUrl.split('/').pop(); // Lấy ID từ URL
+                document.getElementById('documentId').value = matailieu;
+                new bootstrap.Modal(document.getElementById('reasonModal')).show();
+            } else {
+                document.getElementById('confirmForm').action = actionUrl;
+                document.getElementById('methodInput').value = method;
+                document.getElementById('confirmMessage').textContent = message;
+                const confirmButton = document.getElementById('confirmButton');
+                confirmButton.textContent = buttonText;
+                confirmButton.className = "btn " + buttonClass;
+                new bootstrap.Modal(document.getElementById('confirmModal')).show();
+            }
         }
 
         function setViewDetails(documentData) {

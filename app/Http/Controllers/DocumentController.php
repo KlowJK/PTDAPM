@@ -117,11 +117,18 @@ class DocumentController extends Controller
     }
 
     // Ẩn tài liệu (soft delete)
-    public function hide($id)
+    public function hide(Request $request, $id)
     {
+        $request->validate([
+            'lydoan' => 'required|string|max:255',
+        ]);
+    
         $document = Document::findOrFail($id);
-        $document->delete(); // Soft delete - cập nhật deleted_at
-
+        $document->update([
+            'lydoan' => $request->lydoan,
+        ]);
+        $document->delete();
+        
         return redirect()->route('documents.index')->with('success', 'Tài liệu đã được ẩn.');
     }
 

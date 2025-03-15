@@ -74,6 +74,19 @@
         </div>
     </div>
 
+    @if (session('success'))
+        <div class="toast align-items-center show" id="toast" role="alert" aria-live="assertive"
+            aria-atomic="true" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+
     <!-- Modal Xác Nhận Hành Động -->
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -105,6 +118,16 @@
             const confirmButton = document.getElementById('confirmButton');
             confirmButton.textContent = buttonText;
             confirmButton.className = "btn " + buttonClass;
+        }
+
+        window.onload = function() {
+            var toast = document.getElementById('toast');
+            if (toast) {
+                toast.classList.add('show');
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3000); // 3 giây để ẩn toast
+            }
         }
     </script>
 @endsection

@@ -29,7 +29,7 @@ Route::resource('documents', DocumentController::class)->parameters([
 
 
 Route::patch('/documents/{matailieu}/approve', [DocumentController::class, 'approve'])->name('documents.approve');
-Route::patch('/documents/{matailieu}/hide', [DocumentController::class, 'hide'])->name('documents.hide');
+Route::post('/documents/{matailieu}/hide', [DocumentController::class, 'hide'])->name('documents.hide');
 Route::post('/documents/{matailieu}/restore', [DocumentController::class, 'restore'])->name('documents.restore');
 Route::delete('/documents/{matailieu}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 
