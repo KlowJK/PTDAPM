@@ -10,7 +10,7 @@ class Feedback extends Model
 {
     /** @use HasFactory<\Database\Factories\FeedbackFactory> */
     use HasFactory, SoftDeletes;
-    protected $table = 'feedbacks';
+    protected $table = 'feedback';
     protected $primaryKey = 'mathacmac';
     public $incrementing = false;
     protected $keyType = 'string';

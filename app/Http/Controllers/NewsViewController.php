@@ -2,65 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NewsView;
-use App\Http\Requests\StoreNewsViewRequest;
-use App\Http\Requests\UpdateNewsViewRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
+use App\Models\News;
 
 class NewsViewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $news = News::with(['user.student', 'user.teacher', 'user.admin'])->paginate(5);
+        $updated_at = News::orderBy('updated_at', 'desc')->first();
+        return view('newsviews.index', compact('news'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($matintuc)
     {
-        //
-    }
+        try {
+            // Tìm bài viết theo mã tin tức
+            $newsItem = News::where('matintuc', $matintuc)->firstOrFail();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreNewsViewRequest $request)
-    {
-        //
-    }
+            // Trả về view hiển thị chi tiết tin tức
+            return view('newsviews.show', compact('newsItem'));
+        } catch (ModelNotFoundException $e) {
+            // Ghi log lỗi nếu không tìm thấy bài viết
+            Log::warning("Không tìm thấy tin tức với mã: $matintuc");
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(NewsView $newsView)
-    {
-        //
-    }
+            return redirect()->back()->withErrors(['error' => 'Không tìm thấy bài viết.']);
+        } catch (\Exception $e) {
+            // Ghi log lỗi nếu có lỗi khác xảy ra
+            Log::error('Lỗi khi lấy tin tức: ' . $e->getMessage());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(NewsView $newsView)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateNewsViewRequest $request, NewsView $newsView)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(NewsView $newsView)
-    {
-        //
+            return redirect()->back()->withErrors(['error' => 'Không thể lấy thông tin bài viết.']);
+        }
     }
 }

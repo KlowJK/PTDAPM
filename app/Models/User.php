@@ -23,7 +23,7 @@ class User extends Authenticatable
     protected $primaryKey = 'tentaikhoan';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['tentaikhoan', 'password', 'vaitro', 'email', 'trangthai', 'lydokhoa', 'thoigiankhoa'];
+    protected $fillable = ['tentaikhoan', 'password', 'vaitro', 'email', 'trangthai', 'lydokhoa', 'thoigiankhoa', 'gioithieu', 'sodienthoai'];
 
     // public function getAuthIdentifierName()
     // {

@@ -1,210 +1,216 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-        </div>
-    </div>
-
-</x-app-layout>
-
-
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SeoDash Free Bootstrap Admin Template by Adminmart</title>
-    <link rel="shortcut icon" type="image/png" href="{{ url('assets/images/logos/seodashlogo.png') }}" />
-    <link rel="stylesheet" href="../../node_modules/simplebar/dist/simplebar.min.css">
-    <link rel="stylesheet" href="{{url('assets/css/styles.min.css')}}" />
-</head>
-
-<body>
-    <!--  Body Wrapper -->
-    <div class="page-wrapper" id="main-wrapper" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed">
-        <!--  Main wrapper -->
-        <div class="body-wrapper">
-            <div class="container-fluid">
-                <div class="card">
+@extends('layouts.app')
+@section('main')
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="card">
+                <div class="card-body">
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold mb-4">Thông tin cá nhân</h5>
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Form cho tất cả vai trò -->
-                                <form method="post" action="{{ route('profile.update') }}">
-                                    @csrf
-                                    @method('patch')
-
-                                    <!-- Trường chung cho tất cả -->
-                                    <div class="mb-3">
-                                        <label for="tentaikhoan" class="form-label">Tên tài khoản</label>
-                                        <input type="text" class="form-control" id="tentaikhoan" name="tentaikhoan" value="{{ old('tentaikhoan', $user->tentaikhoan) }}" required>
-                                        <div class="form-text text-danger">{{ $errors->first('tentaikhoan') }}</div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
-                                        <div class="form-text text-danger">{{ $errors->first('email') }}</div>
-                                        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
-                                        <div class="form-text">
-                                            Địa chỉ email của bạn chưa được xác minh.
-                                            <button type="submit" form="send-verification" class="btn btn-link p-0 text-decoration-underline">Gửi lại email xác minh</button>
+                        <section class="section profile">
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <div class="card">
+                                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                                            @if($user->vaitro == 'admin')
+                                            <img src="{{ asset('storage/' . $user->admin->hinhanh) }}" alt="Hồ sơ" class="rounded-circle">
+                                            <h2>{{$user->admin->tenquantri}}</h2>
+                                            <h5>Quản trị viên</h5>
+                                            @elseif($user->vaitro == 'student')
+                                            <img src="{{ asset('storage/' . $user->student->hinhanh) }}" alt="Hồ sơ" class="rounded-circle">
+                                            <h2>{{$user->student->tensinhvien}}</h2>
+                                            <h5>Sinh viên</h5>
+                                            @elseif($user->vaitro == 'teacher')
+                                            <img src="{{ asset('storage/' . $user->teacher->hinhanh) }}" alt="Hồ sơ" class="rounded-circle">
+                                            <h2>{{$user->teacher->tengiaovien}}</h2>
+                                            <h5>Giảng viên</h5>
+                                            @endif
+                                            <div class="social-links mt-2">
+                                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                            </div>
                                         </div>
-                                        @if (session('status') === 'verification-link-sent')
-                                        <div class="form-text text-success">Liên kết xác minh mới đã được gửi đến email của bạn.</div>
-                                        @endif
-                                        @endif
                                     </div>
+                                </div>
 
-                                    <!-- Trường cho admin -->
-                                    @if ($user->vaitro === 'admin')
-                                    <div class="mb-3">
-                                        <label for="maquantri" class="form-label">Mã quản trị</label>
-                                        <input type="text" class="form-control" id="maquantri" name="maquantri" value="{{ old('maquantri', $user->admin->maquantri) }}" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="tenquantri" class="form-label">Tên quản trị</label>
-                                        <input type="text" class="form-control" id="tenquantri" name="tenquantri" value="{{ old('tenquantri', $user->admin->tenquantri) }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="ngaysinh" class="form-label">Ngày sinh</label>
-                                        <input type="text" class="form-control" id="ngaysinh" name="ngaysinh" value="{{ old('ngaysinh', $user->admin->ngaysinh) }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="gioitinh" class="form-label">Giới tính</label>
-                                        <select class="form-select" id="gioitinh" name="gioitinh">
-                                            <option value="Nam" {{ $user->admin->gioitinh === 'Nam' ? 'selected' : '' }}>Nam</option>
-                                            <option value="Nữ" {{ $user->admin->gioitinh === 'Nữ' ? 'selected' : '' }}>Nữ</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="quequan" class="form-label">Quê quán</label>
-                                        <input type="text" class="form-control" id="quequan" name="quequan" value="{{ old('quequan', $user->admin->quequan) }}">
-                                    </div>
-                                    @endif
+                                <div class="col-xl-8">
+                                    <div class="card">
+                                        <div class="card-body pt-3">
+                                            <!-- Tab viền -->
+                                            <ul class="nav nav-tabs nav-tabs-bordered">
 
-                                    <!-- Trường cho sinh viên -->
-                                    @if ($user->vaitro === 'student')
-                                    <div class="mb-3">
-                                        <label for="masinhvien" class="form-label">Mã sinh viên</label>
-                                        <input type="text" class="form-control" id="masinhvien" name="masinhvien" value="{{ old('masinhvien', $user->student->masinhvien) }}" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="tensinhvien" class="form-label">Tên sinh viên</label>
-                                        <input type="text" class="form-control" id="tensinhvien" name="tensinhvien" value="{{ old('tensinhvien', $user->student->tensinhvien) }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="khoa" class="form-label">Khoa</label>
-                                        <input type="text" class="form-control" id="khoa" name="khoa" value="{{ old('khoa', $user->student->khoa) }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="lop" class="form-label">Lớp</label>
-                                        <input type="text" class="form-control" id="lop" name="lop" value="{{ old('lop', $user->student->lop) }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="ngaysinh" class="form-label">Ngày sinh</label>
-                                        <input type="text" class="form-control" id="ngaysinh" name="ngaysinh" value="{{ old('ngaysinh', $user->student->ngaysinh) }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="gioitinh" class="form-label">Giới tính</label>
-                                        <select class="form-select" id="gioitinh" name="gioitinh">
-                                            <option value="Nam" {{ $user->student->gioitinh === 'Nam' ? 'selected' : '' }}>Nam</option>
-                                            <option value="Nữ" {{ $user->student->gioitinh === 'Nữ' ? 'selected' : '' }}>Nữ</option>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="{{ route('profile.edit')}}">Tổng quan</a>
+                                                </li>
 
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="quequan" class="form-label">Quê quán</label>
-                                        <input type="text" class="form-control" id="quequan" name="quequan" value="{{ old('quequan', $user->student->quequan) }}">
-                                    </div>
-                                    @endif
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ route('profile.editprofile')}}">Chỉnh sửa hồ sơ</a>
+                                                </li>
 
-                                    <!-- Trường cho giảng viên -->
-                                    @if ($user->vaitro === 'teacher')
-                                    <div class="mb-3">
-                                        <label for="magiaovien" class="form-label">Mã giảng viên</label>
-                                        <input type="text" class="form-control" id="magiaovien" name="magiaovien" value="{{ old('magiaovien', $user->teacher->magiaovien) }}" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="tengiaovien" class="form-label">Tên giảng viên</label>
-                                        <input type="text" class="form-control" id="tengiaovien" name="tengiaovien" value="{{ old('tengiaovien', $user->teacher->tengiaovien) }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="khoa" class="form-label">Khoa</label>
-                                        <input type="text" class="form-control" id="khoa" name="khoa" value="{{ old('khoa', $user->teacher->khoa) }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="ngaysinh" class="form-label">Ngày sinh</label>
-                                        <input type="text" class="form-control" id="ngaysinh" name="ngaysinh" value="{{ old('ngaysinh', $user->teacher->ngaysinh) }}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="gioitinh" class="form-label">Giới tính</label>
-                                        <select class="form-select" id="gioitinh" name="gioitinh">
-                                            <option value="Nam" {{ $user->teacher->gioitinh === 'Nam' ? 'selected' : '' }}>Nam</option>
-                                            <option value="Nữ" {{ $user->teacher->gioitinh === 'Nữ' ? 'selected' : '' }}>Nữ</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="quequan" class="form-label">Quê quán</label>
-                                        <input type="text" class="form-control" id="quequan" name="quequan" value="{{ old('quequan', $user->teacher->quequan) }}">
-                                    </div>
-                                    @endif
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ route('password.edit')}}">Đổi mật khẩu</a>
+                                                </li>
 
-                                    <!-- Nút submit -->
-                                    <button type="submit" class="btn btn-primary">Lưu</button>
-                                    @if (session('status') === 'profile-updated')
-                                    <span class="form-text text-success">Đã lưu.</span>
-                                    @endif
-                                </form>
+                                            </ul>
+                                            <div class="tab-content pt-2">
+                                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                                    <!-- Form tổng quan -->
+                                                    <h5 class="card-title mt-3"><strong>Giới thiệu</strong></h5>
+                                                    <p class="small fst-italic mb-3">{{$user->gioithieu}}</p>
 
-                                <!-- Form gửi lại email xác minh -->
-                                <form id="send-verification" method="post" action="{{ route('verification.send') }}" hidden>
-                                    @csrf
-                                </form>
+                                                    <h5 class="card-title mb-4"><strong>Chi tiết hồ sơ</strong></h5>
+                                                    @if($user->vaitro == 'admin')
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Mã quản trị</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->admin->maquantri}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Họ và tên</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->admin->tenquantri}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Ngày sinh</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->admin->ngaysinh}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Giới tính</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->admin->gioitinh}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Địa chỉ</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->admin->quequan}}</div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Email</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->email}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Số điện thoại</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->sodienthoai}}</div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Trạng thái</strong></div>
+                                                        <div class="col-lg-9 col-md-8">
+                                                            @if($user->trangthai == 'active')
+                                                            <strong class="text">Hoạt động</strong>
+                                                            @else
+                                                            <span class="badge bg-danger">Khóa</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    @elseif($user->vaitro == 'student')
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Mã sinh viên</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->student->masinhvien}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Họ và tên</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->student->tensinhvien}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Ngày sinh</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->student->ngaysinh}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Giới tính</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->student->gioitinh}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Địa chỉ</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->student->quequan}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Khoa</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->student->khoa}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Lớp</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->student->lop}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Email</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->email}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Số điện thoại</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->sodienthoai}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Trạng thái</strong></div>
+                                                        <div class="col-lg-9 col-md-8">
+                                                            @if($user->trangthai == 'active')
+                                                            <strong class="text">Hoạt động</strong>
+                                                            @else
+                                                            <span class="badge bg-danger">Khóa</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    @elseif($user->vaitro == 'teacher')
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Mã giảng viên</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->teacher->magiaovien}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Họ và tên</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->teacher->tengiaovien}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Ngày sinh</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->teacher->ngaysinh}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Giới tính</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->teacher->gioitinh}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Địa chỉ</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->teacher->quequan}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Khoa</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->teacher->khoa}}</div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Email</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->email}}</div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Số điện thoại</strong></div>
+                                                        <div class="col-lg-9 col-md-8">{{$user->sodienthoai}}</div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 mb-2 label"><strong>Trạng thái</strong></div>
+                                                        <div class="col-lg-9 col-md-8">
+                                                            @if($user->trangthai == 'active')
+                                                            <strong class="text">Hoạt động</strong>
+                                                            @else
+                                                            <span class="badge bg-danger">Khóa</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    @endif
+                                                    <div class="text-center">
+                                                        <a href="{{ route('newsviews.index') }}" class="btn btn-secondary">Quay lại</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="{{url('assets/libs/jquery/dist/jquery.min.js')}}"></script>
-    <script src="{{url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{url('assets/libs/simplebar/dist/simplebar.js')}}"></script>
-    <script src="{{url('assets/js/sidebarmenu.js')}}"></script>
-    <script src="{{url('assets/js/app.min.js')}}"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-
-
-
-</body>
-
-</html>
+@endsection
