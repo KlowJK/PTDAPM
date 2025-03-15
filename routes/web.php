@@ -32,6 +32,8 @@
         
         Route::resource('feedbacks', FeedbackController::class);
         Route::get('/feedbacks/{mathacmac}/reply', [FeedbackController::class, 'storeReply'])->name('feedbacks.storeReply');
+        Route::post('/newsviews/{id}/comment', [FeedbackController::class, 'store'])->name('newsviews.comment');
+
 
         
         Route::get('/newsviews', [NewsViewController::class, 'index'])->name('newsviews.index');

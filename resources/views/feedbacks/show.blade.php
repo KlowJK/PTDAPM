@@ -74,7 +74,9 @@
                 Gửi phản hồi thành công!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    <a href="{{ route('feedbacks.index') }}" class="text-white">Đóng</a>
+                </button>
             </div>
         </div>
     </div>

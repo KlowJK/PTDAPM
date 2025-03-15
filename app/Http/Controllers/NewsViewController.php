@@ -12,7 +12,8 @@ class NewsViewController extends Controller
 {
     public function index()
     {
-        $news = News::with(['user.student', 'user.teacher', 'user.admin'])->paginate(5);
+        $news = News::with(['user.student', 'user.teacher', 'user.admin','feedbacks'])->paginate(5);
+        
         $updated_at = News::orderBy('updated_at', 'desc')->first();
         return view('newsviews.index', compact('news'));
     }
