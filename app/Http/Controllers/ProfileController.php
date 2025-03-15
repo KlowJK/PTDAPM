@@ -108,7 +108,7 @@ class ProfileController extends Controller
 
         $user->save();
         // Trả về trang hiện tại với thông báo thành công
-        return redirect()->back()->with('status', 'profile-updated')->withInput();
+        return redirect()->back()->with('status', 'Cập nhật thông tin thành công!');
     }
 
 

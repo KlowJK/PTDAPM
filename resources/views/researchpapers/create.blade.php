@@ -60,7 +60,8 @@
 
             <div class="col-md-6">
                 <label class="form-label fw-bold">Hình ảnh minh họa</label>
-                <input type="file" name="hinhanh" class="form-control @error('hinhanh') is-invalid @enderror" accept="image/*" required>
+                <input type="file" name="hinhanh" class="form-control @error('hinhanh') is-invalid @enderror" accept="image/*" required onchange="previewImage(event)">
+                <img id="imagePreview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;">
                 @error('hinhanh')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -72,21 +73,41 @@
                     <input type="date" name="ngaydang" id="ngay_dang" class="form-control">
                 </div>
 
-                <div class="col-md-6">
-                    <label class="form-label fw-bold">Người đăng</label>
+                {{-- <div class="col-md-6">
+                        <label class="form-label fw-bold">Người đăng</label>
+                        <input type="text" class="form-control" value="{{ Auth::user()->tentaikhoan }}" readonly>
+            </div> --}}
 
-                    <input type="text" class="form-control" value="{{ Auth::user()->tentaikhoan }}" readonly>
-                </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Người đăng</label>
+                <input type="text" class="form-control" value="@php
+                            $user = Auth::user();
+                            $displayName = $user ? $user->tentaikhoan : 'Unknown';
+                            if ($user) {
+                                switch ($user->vaitro) {
+                                    case 'teacher':
+                                        $teacher = \App\Models\Teacher::where('tentaikhoan', $user->tentaikhoan)->first();
+                                        $displayName = $teacher ? $teacher->tengiaovien : 'Unknown Teacher';
+                                        break;
+                                    case 'admin':
+                                        $admin = \App\Models\Admin::where('tentaikhoan', $user->tentaikhoan)->first();
+                                        $displayName = $admin ? $admin->tenquantri : 'Unknown Admin';
+                                        break;
+                                }
+                            }
+                            echo $displayName;
+                        @endphp" readonly>
             </div>
-
-            <div class="d-flex justify-content-end">
-                <a href="{{ route('researchpapers.index') }}" class="btn btn-secondary me-2">🔙 Quay lại</a>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                    ✅ Đăng bài
-                </button>
-            </div>
-        </form>
     </div>
+
+    <div class="d-flex justify-content-end">
+        <a href="{{ route('researchpapers.index') }}" class="btn btn-secondary me-2">🔙 Quay lại</a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+            ✅ Đăng bài
+        </button>
+    </div>
+    </form>
+</div>
 </div>
 
 <!-- Modal Xác Nhận Đăng Bài -->

@@ -35,8 +35,9 @@ class ResearchPaperController extends Controller
      */
     public function store(StoreResearchPaperRequest $request)
     {
-        $path = $request->file('path') ? $request->file('path')->store('researchpapers', 'public') : null;
-        $hinhanh = $request->file('hinhanh') ? $request->file('hinhanh')->store('images', 'public') : null;
+        $path = $request->file('path')->store('researchpapers', 'public');
+        $hinhanh = $request->file('hinhanh')->store('images', 'public');
+
 
         ResearchPaper::create([
             'mabaiviet' => $request->mabaiviet,
@@ -76,23 +77,29 @@ class ResearchPaperController extends Controller
      */
     public function update(UpdateResearchPaperRequest $request, $mabaiviet)
     {
-
         $paper = ResearchPaper::findOrFail($mabaiviet);
 
         $data = $request->validated();
 
-        // Xử lý file hinhanh
+        // Xử lý file tài liệu nếu có
+        if ($request->hasFile('path')) {
+            if ($paper->path) {
+                Storage::disk('public')->delete($paper->path);
+            }
+            $data['path'] = $request->file('path')->store('researchpapers', 'public');
+        }
+
+        // Xử lý ảnh minh họa nếu có
         if ($request->hasFile('hinhanh')) {
             if ($paper->hinhanh) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $paper->hinhanh));
+                Storage::disk('public')->delete($paper->hinhanh);
             }
             $data['hinhanh'] = $request->file('hinhanh')->store('images', 'public');
         }
-
         // Cập nhật bài viết
         $paper->update($data);
 
-        return redirect()->route('researchpapers.edit', $paper->mabaiviet)->with('success', 'Bài viết đã được cập nhật.');
+        return redirect()->route('researchpapers.index', $paper->mabaiviet)->with('success', 'Bài viết đã được cập nhật.');
     }
 
     /**
@@ -101,7 +108,6 @@ class ResearchPaperController extends Controller
     public function destroy($mabaiviet)
     {
         //
-
         $paper = ResearchPaper::findOrFail($mabaiviet);
         Storage::delete([$paper->path, $paper->hinhanh]);
         $paper->delete();

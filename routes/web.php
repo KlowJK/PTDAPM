@@ -10,7 +10,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\DocumentTeacherController;
-use App\Models\News;
+
 
 Route::get('/', [NewsViewController::class, 'index']);
 
@@ -36,7 +36,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::resource('feedbacks', FeedbackController::class);
     Route::get('/feedbacks/{mathacmac}/reply', [FeedbackController::class, 'storeReply'])->name('feedbacks.storeReply');
-    Route::post('/newsviews/{id}/comment', [FeedbackController::class, 'store'])->name('newsviews.comment');
 
 
     Route::get('/documents/hidden', [DocumentController::class, 'hiddenHistory'])->name('documents.hiddenHistory');
@@ -45,7 +44,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     ]);
 
     Route::patch('/documents/{matailieu}/approve', [DocumentController::class, 'approve'])->name('documents.approve');
-    Route::patch('/documents/{matailieu}/hide', [DocumentController::class, 'hide'])->name('documents.hide');
+    Route::post('/documents/{matailieu}/hide', [DocumentController::class, 'hide'])->name('documents.hide');
     Route::post('/documents/{matailieu}/restore', [DocumentController::class, 'restore'])->name('documents.restore');
     Route::delete('/documents/{matailieu}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 });
@@ -57,6 +56,7 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::resource('documentteacher', DocumentTeacherController::class);
 });
 
+Route::post('/newsviews/{id}/comment', [FeedbackController::class, 'store'])->name('newsviews.comment');
 Route::get('/newsviews', [NewsViewController::class, 'index'])->name('newsviews.index');
 
 require __DIR__ . '/auth.php';

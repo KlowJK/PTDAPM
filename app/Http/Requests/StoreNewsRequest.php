@@ -33,14 +33,14 @@ class StoreNewsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'tentintuc.required' => 'Vui lòng nhập tiêu đề bài viết.',
-            'mota.required' => 'Vui lòng nhập mô tả bài viết.',
-            'noidung.required' => 'Vui lòng nhập nội dung bài viết.',
-            'path.required' => 'Vui lòng chọn ảnh cho bài viết.',
+            'tentintuc.required' => 'Vui lòng nhập tiêu đề tin tức.',
+            'mota.required' => 'Vui lòng nhập mô tả tin tức.',
+            'noidung.required' => 'Vui lòng nhập nội dung tin tức.',
+            'path.required' => 'Vui lòng chọn ảnh cho tin tức.',
             'path.image' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
             'path.mimes' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
             'path.max' => 'Kích thước ảnh không được vượt quá 2MB.',
-            'trangthai.required' => 'Vui lòng chọn trạng thái bài viết.',
+            'trangthai.required' => 'Vui lòng chọn trạng thái tin tức.',
             'trangthai.in' => 'Trạng thái không hợp lệ.',
         ];
     }

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class DocumentController extends Controller
 {
@@ -122,13 +123,13 @@ class DocumentController extends Controller
         $request->validate([
             'lydoan' => 'required|string|max:255',
         ]);
-    
+
         $document = Document::findOrFail($id);
         $document->update([
             'lydoan' => $request->lydoan,
         ]);
         $document->delete();
-        
+
         return redirect()->route('documents.index')->with('success', 'Tài liệu đã được ẩn.');
     }
 
