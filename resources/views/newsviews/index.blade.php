@@ -1,9 +1,9 @@
-@extends('layoutsnews.app')
+@extends('layouts.newsviews')
 
 @section('main')
 <div class="container">
     <h2 class="mb-4">Danh sách Tin Tức</h2>
-   
+
     <ul class="list-unstyled">
         @foreach($news as $item)
         @php

@@ -9,33 +9,54 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center gap-2 mb-4">
                             <span>
-                                <i class="bi bi-cart check-fill fs-6"></i>
+                                <i class="bi bi-person-lines-fill fs-6"></i>
                             </span>
                             <h3 class="mb-0">Chi tiết tài khoản</h3>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="tentaikhoan" class="form-label">Tên tài khoản</label>
-                                <input type="text" class="form-control" id="tentaikhoan" name="tentaikhoan" value="{{$user->tentaikhoan}}" readonly>
+
+
+                    <div class="tab-content pt-2">
+                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <!-- Form tổng quan -->
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 mb-2 label"><strong>Tên tài khoản</strong></div>
+                                <div class="col-lg-9 col-md-8">{{$user->tentaikhoan}}</div>
                             </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{$user->email}}" readonly>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 mb-2 label"><strong>Email</strong></div>
+                                <div class="col-lg-9 col-md-8">{{$user->email}}</div>
                             </div>
-                            <div class="mb-3">
-                                <label for="vaitro" class="form-label">Vai trò</label>
-                                <input type="text" class="form-control" id="vaitro" name="vaitro" value="{{$user->vaitro}}" readonly>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 mb-2 label"><strong>Giới thiệu</strong></div>
+                                <div class="col-lg-9 col-md-8">{{$user->gioithieu}}</div>
                             </div>
-                            <div class="mb-3">
-                                <label for="created_at" class="form-label">Ngày tạo</label>
-                                <input type="text" class="form-control" id="created_at" name="created_at" value="{{$user->created_at}}" readonly>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 mb-2 label"><strong>Vai trò</strong></div>
+                                <div class="col-lg-9 col-md-8">
+                                    @if($user->vaitro == 'teacher')
+                                    Giảng viên
+                                    @elseif($user->vaitro == 'student')
+                                    Sinh viên
+                                    @endif
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="updated_at" class="form-label">Ngày cập nhật</label>
-                                <input type="text" class="form-control" id="updated_at" name="updated_at" value="{{$user->updated_at}}" readonly>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 mb-2 label"><strong>Số điện thoại</strong></div>
+                                <div class="col-lg-9 col-md-8">{{$user->sodienthoai}}</div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 mb-2 label"><strong>Trạng thái</strong></div>
+                                <div class="col-lg-9 col-md-8">
+                                    @if($user->trangthai == 'active')
+                                    <strong class="text">Hoạt động</strong>
+                                    @else
+                                    <span class="badge bg-danger">Khóa</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
                         </div>
                     </div>
                 </div>

@@ -13,42 +13,51 @@ class ProfileUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+
     public function rules(): array
     {
         $user = $this->user(); // Lấy thông tin người dùng hiện tại
         $rules = [
-            'tentaikhoan' => ['required', 'string', 'max:50'],
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id),
-            ],
-            'ngaysinh' => ['nullable', 'string', 'max:50'], // Có thể để trống, định dạng chuỗi
-            'gioitinh' => ['nullable', 'string', 'in:Nam,Nữ,Khác'], // Chỉ chấp nhận các giá trị cụ thể
-            'quequan' => ['nullable', 'string', 'max:255'],
+            'gioithieu' => ['nullable', 'string'],
+            'sodienthoai' => ['nullable', 'numeric', 'digits_between:10,11'],
         ];
 
         // Thêm quy tắc tùy theo vai trò
-        if ($user->role === 'admin') {
+        if ($user->vaitro === 'admin') {
             $rules = array_merge($rules, [
-                'maquantri' => ['required', 'string', 'max:50'], // readonly trong form nhưng vẫn cần validate nếu gửi dữ liệu
+                'hinhanh' => ['nullable', 'image', 'max:2048', 'mimes:jpeg,png,jpg,gif,svg,webp'],
                 'tenquantri' => ['required', 'string', 'max:100'],
+                'ngaysinh' => ['nullable', 'date'],
+                'gioitinh' => ['nullable', 'string', Rule::in(['Nam', 'Nữ'])],
+                'quequan' => ['nullable', 'string', 'max:255'],
+
             ]);
-        } elseif ($user->role === 'sinhvien') {
+        } elseif ($user->vaitro === 'student') {
             $rules = array_merge($rules, [
-                'masinhvien' => ['required', 'string', 'max:50'],
                 'tensinhvien' => ['required', 'string', 'max:100'],
+                'hinhanh' => ['nullable', 'image', 'max:2048', 'mimes:jpeg,png,jpg,gif,svg,webp'],
                 'khoa' => ['nullable', 'string', 'max:100'],
                 'lop' => ['nullable', 'string', 'max:100'],
+                'ngaysinh' => ['nullable', 'date'],
+                'gioitinh' => ['nullable', 'string', Rule::in(['Nam', 'Nữ'])],
+                'quequan' => ['nullable', 'string', 'max:255'],
+
             ]);
-        } elseif ($user->role === 'giaovien') {
+        } elseif ($user->vaitro === 'teacher') {
             $rules = array_merge($rules, [
-                'magiaovien' => ['required', 'string', 'max:50'],
+
+                'hinhanh' => ['nullable', 'image', 'max:2048', 'mimes:jpeg,png,jpg,gif,svg,webp'],
                 'tengiaovien' => ['required', 'string', 'max:50'],
                 'khoa' => ['nullable', 'string', 'max:100'],
+                'ngaysinh' => ['nullable', 'date'],
+                'gioitinh' => ['nullable', 'string', Rule::in(['Nam', 'Nữ'])],
+                'quequan' => ['nullable', 'string', 'max:255'],
+
             ]);
         }
 
@@ -58,20 +67,31 @@ class ProfileUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'tentaikhoan.required' => 'Tên tài khoản là bắt buộc.',
-            'tentaikhoan.max' => 'Tên tài khoản không được vượt quá 50 ký tự.',
-            'email.required' => 'Email là bắt buộc.',
-            'email.email' => 'Email không đúng định dạng.',
-            'email.unique' => 'Email này đã được sử dụng.',
-            'ngaysinh.max' => 'Ngày sinh không được vượt quá 50 ký tự.',
-            'gioitinh.in' => 'Giới tính chỉ có thể là Nam, Nữ hoặc Khác.',
+            'gioithieu.string' => 'Giới thiệu phải là chuỗi ký tự.',
+            'sodienthoai.numeric' => 'Số điện thoại phải là số.',
+            'sodienthoai.digits_between' => 'Số điện thoại phải có độ dài từ 10 đến 11 chữ số.',
+            'hinhanh.image' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
+            'hinhanh.mimes' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
+            'hinhanh.max' => 'Kích thước ảnh không được vượt quá 2MB.',
+            'tenquantri.required' => 'Vui lòng nhập tên quản trị viên.',
+            'tenquantri.string' => 'Tên quản trị viên phải là chuỗi ký tự.',
+            'tenquantri.max' => 'Tên quản trị viên không được vượt quá 100 ký tự.',
+            'ngaysinh.date' => 'Ngày sinh phải là ngày tháng.',
+            'gioitinh.string' => 'Giới tính phải là chuỗi ký tự.',
+            'gioitinh.in' => 'Giới tính không hợp lệ.',
+            'quequan.string' => 'Quê quán phải là chuỗi ký tự.',
             'quequan.max' => 'Quê quán không được vượt quá 255 ký tự.',
-            'maquantri.required' => 'Mã quản trị là bắt buộc.',
-            'tenquantri.required' => 'Tên quản trị là bắt buộc.',
-            'masinhvien.required' => 'Mã sinh viên là bắt buộc.',
-            'tensinhvien.required' => 'Tên sinh viên là bắt buộc.',
-            'magiaovien.required' => 'Mã giảng viên là bắt buộc.',
-            'tengiaovien.required' => 'Tên giảng viên là bắt buộc.',
+            'tensinhvien.required' => 'Vui lòng nhập tên sinh viên.',
+            'tensinhvien.string' => 'Tên sinh viên phải là chuỗi ký tự.',
+            'tensinhvien.max' => 'Tên sinh viên không được vượt quá 100 ký tự.',
+            'khoa.string' => 'Khoa phải là chuỗi ký tự.',
+            'khoa.max' => 'Khoa không được vượt quá 100 ký tự.',
+            'lop.string' => 'Lớp phải là chuỗi ký tự.',
+            'lop.max' => 'Lớp không được vượt quá 100 ký tự.',
+            'tengiaovien.required' => 'Vui lòng nhập tên giáo viên.',
+            'tengiaovien.string' => 'Tên giáo viên phải là chuỗi ký tự.',
+            'tengiaovien.max' => 'Tên giáo viên không được vượt quá 50 ký tự.',
+
         ];
     }
 }

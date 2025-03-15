@@ -66,7 +66,13 @@
                                 <tr onclick="window.location='{{ route('users.show', $user->tentaikhoan) }}'" style="cursor: pointer;">
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $user->tentaikhoan }}</td>
-                                    <td>{{ $user->vaitro }}</td>
+                                    <td>
+                                        @if($user->vaitro == 'teacher')
+                                        Giảng viên
+                                        @elseif($user->vaitro == 'student')
+                                        Sinh viên
+                                        @endif
+                                    </td>
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @if($user->trangthai == 'active')

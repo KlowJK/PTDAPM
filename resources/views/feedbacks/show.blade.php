@@ -4,7 +4,7 @@
 @section('main')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <h3 class="mb-4">Xem Thắc mắc</h3>

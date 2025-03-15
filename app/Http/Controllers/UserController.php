@@ -25,6 +25,10 @@ class UserController extends Controller
         return view('users.index', compact('users', 'updated_at'));
     }
 
+    public function dashboard()
+    {
+        return view('dashboard.index');
+    }
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -65,7 +69,7 @@ class UserController extends Controller
         $user = $request->only(['tentaikhoan', 'password', 'email', 'vaitro']);
         $user['password'] = bcrypt($user['password']);
         User::create($user);
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Thêm tài khoản thành công');
     }
 
     /**
