@@ -14,7 +14,7 @@ class Document extends Model
     protected $primaryKey = 'matailieu';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['matailieu', 'tentailieu', 'hinhanh', 'path', 'noidung', 'ngaydang', 'nguoidang' , 'trangthaiduyet'];
+    protected $fillable = ['matailieu', 'tentailieu', 'hinhanh', 'path', 'noidung', 'ngaydang', 'nguoidang' , 'trangthaiduyet', 'lydoan'];
     protected $dates = ['deleted_at'];
 
     public function user()

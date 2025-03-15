@@ -33,24 +33,10 @@ class ResearchPaperController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreResearchPaperRequest $request)
     {
-        $request->validate([
-            'mabaiviet' => 'required|unique:research_papers,mabaiviet|max:50',
-            'tenbaiviet' => 'required|max:255',
-            'mota' => 'required|max:255',
-            'noidung' => 'required',
-            'path' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-            'hinhanh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'ngaydang' => 'date',
-        ]);
-
-        $path = $request->file('path') ? $request->file('path')->store('researchpapers') : null;
+        $path = $request->file('path') ? $request->file('path')->store('researchpapers', 'public') : null;
         $hinhanh = $request->file('hinhanh') ? $request->file('hinhanh')->store('images', 'public') : null;
-// Không sửa đổi đường dẫn, chỉ lưu trữ nó như được trả về bởi phương thức store
-        // Thay đổi để loại bỏ "public/" trong đường dẫn lưu vào database
-        $hinhanh = $hinhanh ? str_replace('public', 'storage', $hinhanh) : null;
-
 
         ResearchPaper::create([
             'mabaiviet' => $request->mabaiviet,
@@ -59,9 +45,9 @@ class ResearchPaperController extends Controller
             'noidung' => $request->noidung,
             'path' => $path,
             'hinhanh' => $hinhanh,
-            'ngaydang' => $request->ngaydang ?: now(), // Lấy giá trị từ form thay vì now()
+            'ngaydang' => $request->ngaydang ?: now(),
             'nguoidang' => 'bao94',
-            // Auth::user()->tentaikhoan,
+            //  Auth::user()->tentaikhoan,
         ]);
 
         return redirect()->route('researchpapers.index')->with('success', 'Bài viết đã được đăng.');
@@ -89,43 +75,24 @@ class ResearchPaperController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $mabaiviet)
+    public function update(UpdateResearchPaperRequest $request, $mabaiviet)
     {
-        //
         $paper = ResearchPaper::findOrFail($mabaiviet);
 
-        $request->validate([
-            'tenbaiviet' => 'required|max:255',
-            'mota' => 'nullable|max:255',
-            'noidung' => 'required',
-            'path' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-            'hinhanh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $data = $request->validated();
 
-        if ($request->hasFile('path')) {
-            Storage::delete($paper->path);
-            $paper->path = $request->file('path')->store('researchpapers');
-        }
-
+        // Xử lý file hinhanh
         if ($request->hasFile('hinhanh')) {
-            // Xóa file cũ (đảm bảo xử lý các định dạng đường dẫn khác nhau)
             if ($paper->hinhanh) {
-                if (strpos($paper->hinhanh, 'storage/') === 0) {
-                    Storage::disk('public')->delete(str_replace('storage/', '', $paper->hinhanh));
-                } else {
-                    Storage::disk('public')->delete($paper->hinhanh);
-                }
+                Storage::disk('public')->delete(str_replace('storage/', '', $paper->hinhanh));
             }
-            $paper->hinhanh = $request->file('hinhanh')->store('images', 'public');
+            $data['hinhanh'] = $request->file('hinhanh')->store('images', 'public');
         }
 
-        $paper->update([
-            'tenbaiviet' => $request->tenbaiviet,
-            'mota' => $request->mota,
-            'noidung' => $request->noidung,
-        ]);
+        // Cập nhật bài viết
+        $paper->update($data);
 
-        return redirect()->route('researchpapers.index')->with('success', 'Bài viết đã được cập nhật.');
+        return redirect()->route('researchpapers.edit', $paper->mabaiviet)->with('success', 'Bài viết đã được cập nhật.');
     }
 
     /**
