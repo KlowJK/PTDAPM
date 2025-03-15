@@ -107,6 +107,8 @@ class FeedbackController extends Controller
         // Cập nhật phản hồi và trạng thái
         $feedback->phanhoi = $replyContent;
         $feedback->trangthai = 'resolved';
+        $feedback->ngayphanhoi = now();
+        $feedback->nguoiphanhoi = Auth::user()->tentaikhoan;
         $feedback->save();
 
         return response()->json(['success' => 'Phản hồi đã được gửi thành công!']);

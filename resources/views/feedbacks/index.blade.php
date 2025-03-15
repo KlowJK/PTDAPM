@@ -35,6 +35,7 @@
                                         <th class="text-nowrap">Mã phản hồi</th>
                                         <th class="text-nowrap">Người gửi</th>
                                         <th class="text-nowrap">Nội dung</th>
+                                        <th class="text-nowrap">Ngày thắc mắc</th>
                                         <th class="text-nowrap">Ngày phản hồi</th>
                                         <th class="text-nowrap">Trạng thái</th>
                                         <th class="text-nowrap text-center">Thao tác</th>
@@ -46,14 +47,15 @@
                                         <td>{{ $item->mathacmac }}</td>
                                         <td>{{ $item->nguoigui ?? 'Không xác định' }}</td>
                                         <td>{{ Str::limit($item->noidung, 50) }}</td>
-                                        <td>{{ $item->ngayphanhoi?? '2025-01-27 23:56:00' }}</td>
+                                        <td>{{ $item->ngaythacmac }}</td>
+                                        <td>{{ $item->ngayphanhoi }}</td>
                                         <td>
                                             @if($item->trangthai == 'pending')
                                             <span class="badge bg-warning">Chờ Phản Hồi</span>
                                             @elseif($item->trangthai == 'resolved')
                                             <span class="badge bg-success">Đã Phản Hồi</span>
-                                            @elseif($item->trangthai == '')
-                                            <span class="badge bg-secondary">Không xác định</span>
+                                            @elseif($item->trangthai == 'processing')
+                                            <span class="badge bg-secondary">Đang Xử Lý</span>
                                             @endif
                                         </td>
                                         <td class="text-center">
