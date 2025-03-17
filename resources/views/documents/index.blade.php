@@ -3,11 +3,6 @@
 @section('title', 'Quản lý tài liệu')
 @section('main')
 <div class="container-fluid">
-    <!-- Tiêu đề trang -->
-    <div class="d-flex align-items-center">
-        <i class="fas fa-book fa-2x me-2"></i>
-        <h2 class="mb-0">Quản lý tài liệu</h2>
-    </div>
 
     <div class="card shadow-sm p-4">
         <!-- Tiêu đề danh sách -->

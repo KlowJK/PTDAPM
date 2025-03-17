@@ -1,10 +1,9 @@
 @extends('layouts.teacher')
+
+@section('title', 'Quản lý bài viết nghiên cứu')
 @section('main')
 <div class="container-fluid">
-    <div class="d-flex align-items-center">
-        <i class="fas fa-file-alt fa-2x me-2"></i>
-        <h2 class="mb-0">Quản lý bài viết nghiên cứu</h2>
-    </div>
+
 
     <div class="card shadow-sm p-4">
         <div class="d-flex align-items-center">

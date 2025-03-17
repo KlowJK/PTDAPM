@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use App\Notifications\AccountLockedNotification;
+use App\Notifications\AccountCreated;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -66,10 +68,35 @@ class UserController extends Controller
     public function store(StoreAuthenticationRequest $request)
     {
         //
-        $user = $request->only(['tentaikhoan', 'password', 'email', 'vaitro']);
-        $user['password'] = bcrypt($user['password']);
-        User::create($user);
-        return redirect()->route('users.index')->with('success', 'Thêm tài khoản thành công');
+        // $user = $request->only(['tentaikhoan', 'password', 'email', 'vaitro']);
+        // $user['password'] = bcrypt($user['password']);
+        // User::create($user);
+        // return redirect()->route('users.index')->with('success', 'Thêm tài khoản thành công');
+
+
+        try {
+            // Lấy dữ liệu từ request
+            $userData = $request->only(['tentaikhoan', 'password', 'email', 'vaitro']);
+            $temporaryPassword = $userData['password']; // Lưu mật khẩu gốc để gửi email
+            $userData['password'] = bcrypt($userData['password']);
+
+            // Tạo tài khoản mới
+            $user = User::create($userData);
+
+            // Gửi thông báo qua email
+            try {
+                Notification::send($user, new AccountCreated($user, $temporaryPassword));
+                return redirect()->route('users.index')
+                    ->with('success', 'Thêm tài khoản thành công. Thông tin kích hoạt đã được gửi.');
+            } catch (\Exception $e) {
+                return redirect()->route('users.index')
+                    ->with('warning', 'Tài khoản đã được tạo nhưng không thể gửi email kích hoạt. Vui lòng thử lại.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'Không thể tạo tài khoản. Vui lòng kiểm tra lại thông tin.']);
+        }
     }
 
     /**

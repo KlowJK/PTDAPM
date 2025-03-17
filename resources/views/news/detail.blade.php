@@ -23,7 +23,7 @@
                                 {{ session('success') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
-                            @endif  
+                            @endif
 
                             @if (session('error'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -108,7 +108,10 @@
                                                 <p>Bạn có chắc chắn muốn từ chối bài viết của {{ $news->nguoidang }} không?</p>
                                                 <div class="mb-3">
                                                     <label for="reason" class="form-label">Lý do từ chối (bắt buộc):</label>
-                                                    <textarea class="form-control" name="reason" id="reason" required></textarea>
+                                                    <textarea class="form-control" name="reason" id="reason"></textarea>
+                                                    @if($errors->has('reason'))
+                                                    <div class="alert alert-danger mt-1">{{ $errors->first('reason') }}</div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

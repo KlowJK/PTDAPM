@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewsRejected;
+use App\Notifications\NewsApproved;
+
 
 class NewsController extends Controller
 {
@@ -140,40 +144,64 @@ class NewsController extends Controller
 
     public function reject(Request $request, $matintuc)
     {
-        //
         $news = News::findOrFail($matintuc);
         try {
             if ($request->isMethod('patch')) {
-                // Validate the reason
+                // Validate lý do từ chối
                 $request->validate([
-                    'reason' => 'required|string|max:255',
+                    'reason' => 'required|string',
+                ], [
+                    'reason.required' => 'Vui lòng nhập lý do từ chối.',
                 ]);
 
-                // Update the news status and reason for rejection
+                // Cập nhật trạng thái và lý do từ chối
                 $news->trangthai = 'rejected';
                 $news->lydotuchoi = $request->reason;
                 $news->save();
+
+
+                // Gửi thông báo cho tác giả
+                try {
+                    $action = 'reject';
+                    $author = $news->user; // Giả định News model có quan hệ với User
+                    Notification::send($author, new NewsRejected($news, $action));
+                    return redirect()->route('news.index')->with('success', 'Tin tức đã bị từ chối.');
+                } catch (\Exception $e) {
+                    return redirect()->route('news.index')->with('warning', 'Tin tức đã bị từ chối nhưng không thể gửi thông báo cho tác giả.');
+                }
             }
-            return redirect()->route('news.index')->with('success', 'Tin tức đã bị từ chối.');
         } catch (\Exception $e) {
-            return redirect()->route('news.index')->with('error', 'Không thể từ chối tin tức. Vui lòng thử lại sau.');
+            return redirect()->route('news.index')->with('error', 'Không thể từ chối tin tức do lỗi hệ thống. Vui lòng thử lại sau.');
         }
     }
 
-    public function approve($matintuc)
+    public function approve(Request $request, $matintuc)
     {
-        //
+
+
         $news = News::findOrFail($matintuc);
         try {
-            $news->trangthai = 'public';
-            $news->lydotuchoi = null;
-            $news->save();
-            return redirect()->route('news.index')->with('success', 'Tin tức đã được duyệt.');
+            if ($request->isMethod('patch')) {
+                // Cập nhật trạng thái bài viết thành công khai
+                $news->trangthai = 'public';
+                $news->lydotuchoi = null; // Xóa lý do từ chối nếu có
+                $news->save();
+
+                // Gửi thông báo cho tác giả
+                try {
+                    $action = 'approve';
+                    $author = $news->user; // Giả định News model có quan hệ với User
+                    Notification::send($author, new NewsApproved($news, $action));
+                    return redirect()->route('news.index')
+                        ->with('success', 'Tin tức đã được duyệt và công khai.');
+                } catch (\Exception $e) {
+                    return redirect()->route('news.index')->with('warning', 'Tin tức đã được duyệt nhưng không thể gửi thông báo cho tác giả.');
+                }
+            }
         } catch (\Exception $e) {
-            return redirect()->route('news.index')->with('error', 'Không thể duyệt tin tức. Vui lòng thử lại sau.');
+            return redirect()->route('news.index')->with('error', 'Không thể duyệt tin tức do lỗi hệ thống. Vui lòng thử lại sau.');
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */

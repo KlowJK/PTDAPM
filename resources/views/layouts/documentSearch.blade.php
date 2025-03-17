@@ -667,15 +667,12 @@ Template sidebar
                     </div>
                     <div class="col-1">
                         <div class="inner-item">
-                            <a href="{{ route('searchsearchdocument.index') }}">
-                                <div class="inner-img">
-                                    <img src="assets\images\newsview\www.jpg" alt="">
-                                </div>
-                                <div class="inner-title">
-                                    <p>Tài liệu</p>
-                                </div>
-                            </a>
-
+                            <div class="inner-img">
+                                <img src="assets\images\newsview\www.jpg" alt="">
+                            </div>
+                            <div class="inner-title">
+                                <p>Tạp chí</p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-1">
@@ -718,30 +715,14 @@ Template sidebar
 
     <hr>
     <div class="container pb50">
-        <div class="row">
-            <div class="col-md-9 mb40">
-                <article>
-                    <div class="post-content">
-                        @yield('content')
-
-
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-md-3 mb40">
-
-
-                <div>
-                    <h4 class="sidebar-title">Tin tức mới nhất</h4>
-                    <ul class="list-unstyled">
-                        @yield('main')
-                    </ul>
-                </div>
+        <article>
+            <div class="post-content">
+                @yield('content')
 
 
             </div>
-        </div>
+        </article>
+
     </div>
 
 </body>
