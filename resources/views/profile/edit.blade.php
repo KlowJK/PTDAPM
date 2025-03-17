@@ -12,16 +12,16 @@
                                     <div class="card">
                                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                                             @if($user->vaitro == 'admin')
-                                            <img src="{{ asset('storage/' . $user->admin->hinhanh) }}" alt="Hồ sơ" class="rounded-circle">
-                                            <h2>{{$user->admin->tenquantri}}</h2>
+                                            <img src="{{ asset('storage/' . ($user->admin?->hinhanh ?? 'default-avatar.png')) }}" alt="Hồ sơ" class="rounded-circle">
+                                            <h2>{{ $user->admin?->tenquantri ?? 'Không có tên' }}</h2>
                                             <h5>Quản trị viên</h5>
                                             @elseif($user->vaitro == 'student')
-                                            <img src="{{ asset('storage/' . $user->student->hinhanh) }}" alt="Hồ sơ" class="rounded-circle">
-                                            <h2>{{$user->student->tensinhvien}}</h2>
+                                            <img src="{{ asset('storage/' . ($user->student?->hinhanh ?? 'default-avatar.png')) }}" alt="Hồ sơ" class="rounded-circle">
+                                            <h2>{{ $user->student?->tensinhvien ?? 'Không có tên' }}</h2>
                                             <h5>Sinh viên</h5>
                                             @elseif($user->vaitro == 'teacher')
-                                            <img src="{{ asset('storage/' . $user->teacher->hinhanh) }}" alt="Hồ sơ" class="rounded-circle">
-                                            <h2>{{$user->teacher->tengiaovien}}</h2>
+                                            <img src="{{ asset('storage/' . ($user->teacher?->hinhanh ?? 'default-avatar.png')) }}" alt="Hồ sơ" class="rounded-circle">
+                                            <h2>{{ $user->teacher?->tengiaovien ?? 'Không có tên' }}</h2>
                                             <h5>Giảng viên</h5>
                                             @endif
                                             <div class="social-links mt-2">

@@ -146,7 +146,7 @@
                                                         <p>{{$item->noidung}}</p>
                                                     </div>
                                                 </div>
-                                                @if ($item->TrangThai == 1)
+                                                @if ($item->trangthaiduyet == 1)
                                                 <div class="row mt-3">
                                                     <div class="col-md-12">
                                                         <p><strong>Lí do bài viết bị ẩn hay bị xóa: </strong></p>

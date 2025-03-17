@@ -10,6 +10,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\DocumentTeacherController;
+use App\Http\Controllers\SearchDocument;
 
 
 Route::get('/', [NewsViewController::class, 'index']);
@@ -55,6 +56,11 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::resource('researchpapers', ResearchPaperController::class);
     Route::resource('documentteacher', DocumentTeacherController::class);
 });
+
+
+Route::resource('searchsearchdocument', SearchDocument::class);
+Route::get('/document/search/find', [SearchDocument::class, 'search'])->name('searchsearchdocument.search');
+
 
 Route::post('/newsviews/{id}/comment', [FeedbackController::class, 'store'])->name('newsviews.comment');
 Route::get('/newsviews', [NewsViewController::class, 'index'])->name('newsviews.index');
