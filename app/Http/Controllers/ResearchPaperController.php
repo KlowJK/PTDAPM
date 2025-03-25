@@ -17,7 +17,7 @@ class ResearchPaperController extends Controller
     public function index()
     {
         //
-        $papers = ResearchPaper::orderBy('updated_at', 'desc')->paginate(5);
+        $papers = ResearchPaper::orderBy('updated_at', 'desc')->paginate(10);
         return view('researchpapers.index', compact('papers'));
     }
 

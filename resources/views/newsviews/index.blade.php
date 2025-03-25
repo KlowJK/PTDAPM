@@ -1,342 +1,173 @@
 @extends('layouts.newsviews')
 
 @section('main')
-<div class="container">
 
-    <ul class="list-unstyled">
-        @foreach($news as $item)
-        @php
-        $avatarIndex = $loop->index % 6 + 1;
-        $avatarUrl = "https://bootdey.com/img/Content/avatar/avatar{$avatarIndex}.png";
-        @endphp
-        @php
-        $dataFirst = $news->first();
-        @endphp
+<style>
+    .parent {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(12, 1fr);
+        gap: 9px;
+    }
 
-        <li class="media my-4 p-3 border rounded">
-            <div class="d-flex align-items-center">
-                <img class="d-flex mr-3 img-fluid rounded-circle m-3" width="64" src="{{ $avatarUrl }}" alt="News Image">
-                <h5 class="mt-0 mb-1 ">Tác giả: {{ $item->nguoidang }}</h5>
-            </div>
+    .div1 {
+        grid-column: span 4 / span 4;
+        grid-row: span 3 / span 3;
+    }
 
-            <div class="media-body">
-                <h5 class="mt-0 mb-1">
-                    <a href="#" class="news-item text-decoration-none text-dark"
-                        data-news-id="{{ $item->matintuc }}"
-                        data-author="{{ $item->nguoidang }}"
-                        data-title="{{ $item->tentintuc }}"
-                        data-summary="{{ $item->mota }}"
-                        data-content="{{ $item->noidung }}"
-                        data-date="{{ $item->created_at }}"
-                        data-avatar="{{ $avatarUrl }}"
-                        data-feedbacks="{{ $item->feedbacks }}">
+    .div2 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 5;
+    }
 
-                        Tên tin tức : {{ $item->tentintuc }}
-                    </a>
-                </h5>
-                <p class="text-muted">Phản hồi: {{ $item->feedbacks->count() }}</p>
-                <small class="text-primary">Ngày đăng: {{ $item->created_at }}</small>
-            </div>
-        </li>
-        @endforeach
-    </ul>
-    <div class="d-flex justify-content-center">
-        {!! $news->links('pagination::bootstrap-4') !!}
-    </div>
+    .div3 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 5;
+        grid-row-start: 3;
+    }
 
-</div>
-@endsection
+    .div4 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-row-start: 4;
+    }
 
-@section('content')
-<div id="news-detail" class="container p-3 mt-3 border rounded bg-light">
-    <div class="media p-3 border rounded bg-white">
+    .div5 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 3;
+        grid-row-start: 4;
+    }
 
-        <div class="d-flex align-items-center">
-            <img class="mr-3 img-fluid rounded-circle m-3" width="64" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="News Image">
-            <h3 class="mt-0 mb-1 bold">Tác giả: {{ $dataFirst->nguoidang}}</h3>
-        </div>
-        <br>
-        <div class="media-body">
-            <h5 class="mt-0 mb-1 bold">Tên tin tức : {{ $dataFirst->tentintuc }}</h5>
+    .div6 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 5;
+        grid-row-start: 5;
+    }
 
-            <div style="width: 800px; word-wrap: break-word;">
-                <p><strong>Nội dung:</strong> <strong>{{ $dataFirst->noidung }}</strong></p>
-            </div>
-            <small class="text-primary">Ngày đăng: {{ $dataFirst->created_at }}</small>
-        </div>
+    .div7 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 5;
+        grid-row-start: 7;
+    }
 
-    </div>
-    <ul class="list-inline share-buttons">
-        <li class="list-inline-item">Chia sẻ bài viết:</li>
-        <li class="list-inline-item">
-            <a href="#" class="social-icon-sm si-dark si-colored-facebook si-gray-round">
-                <i class="fab fa-facebook"></i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a href="#" class="social-icon-sm si-dark si-colored-twitter si-gray-round">
-                <i class="fab fa-twitter"></i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a href="#" class="social-icon-sm si-dark si-colored-linkedin si-gray-round">
-                <i class="fab fa-linkedin"></i>
-            </a>
-        </li>
-    </ul>
+    .div8 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 5;
+        grid-row-start: 9;
+    }
 
-    <hr class="mb40">
-    <h4 class="mb40 text-uppercase font500">Về tác giả </h4>
-    <div class="media mb40">
-        <div class="d-flex align-items-center">
-            <img class="mr-3 img-fluid rounded-circle m-3" width="64" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="News Image">
-            <h5 class="mt-0 font700">{{ $dataFirst->nguoidang }}</h5>
-        </div>
-        <div class="media-body ">
+    .div9 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 5;
+        grid-row-start: 11;
+    }
 
-            <strong>Mô tả: </strong>{{ $dataFirst->mota }}
-        </div>
-    </div>
+    .div10 {
+        grid-column: span 4 / span 4;
+        grid-row: span 3 / span 3;
+        grid-column-start: 1;
+        grid-row-start: 6;
+    }
 
-    <hr class="mb40">
-    <h4 class="mb40 text-uppercase font500">Bình luận</h4>
-    @if($dataFirst->feedbacks->isEmpty())
-    <li class="list-group-item text-muted">Không có phản hồi.</li>
-    @else
-    @foreach($dataFirst->feedbacks->sortByDesc('ngaythacmac') as $feedback)
-    <div class="media m50 d-flex align-items-center">
-        <i class="fas fa-user-circle fa-3x text-primary mr-3 mb-9 m-3"></i>
-        <div class="media-body">
-            <div class="d-flex justify-content-between">
-                <h5 class="mt-0 font-weight-bold d-inline-block ">{{ $feedback->nguoigui }}</h5>
-            </div>
-            <p class="text-muted mt-2">{{ $feedback->noidung }}</p>
-        </div>
-    </div>
-    @endforeach
-    @endif
-    <hr class="mb40">
-    <!-- feedbacks -->
-    <h4 class="mb40 text-uppercase font500">Thêm bình luận </h4>
-    @if (session('success'))
-    <div class="container">
-        <div class="alert alert-success alert-dismissible" role="alert">
-            {{ session('success') }}
-            <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
-        </div>
-    </div>
-    @endif
+    .div11 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 1;
+        grid-row-start: 9;
+    }
 
-    @if (session('error'))
-    <div class="container">
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            {{ session('error') }}
-            <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
-        </div>
-    </div>
-    @endif
-    @if(Auth::check())
-    <form action="{{ route('newsviews.comment', $dataFirst->matintuc) }}" method="POST">
-        @csrf
+    .div12 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 3;
+        grid-row-start: 9;
+    }
 
-        <div class="mb-3 bold">
-            <label for="nguoigui" class="form-label">Tên</label>
-            <input type="text" class="form-control bold" id="nguoigui" name="nguoigui" value="{{ Auth::user()->tentaikhoan }}" readonly>
-        </div>
+    .div13 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 1;
+        grid-row-start: 11;
+    }
 
-        <div class="mb-3">
-            <label for="noidung" class="form-label">Bình luận</label>
-            <textarea class="form-control" id="noidung" name="noidung" rows="4">{{ old('noidung') }}</textarea>
-            @if ($errors->has('noidung'))
-            <span class="error-message text-danger small mt-1 fst-italic">*{{ $errors->first('noidung') }}</span>
-            @endif
-        </div>
-
-        <div class="d-flex justify-content-end gap-2">
-            <button type="submit" class="btn btn-primary">Gửi</button>
-        </div>
-    </form>
-    @endif
+    .div14 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 3;
+        grid-row-start: 11;
+    }
 
 
-
-    <!-- <div class="media m50 d-flex align-items-center">
-        <i class="fas fa-user-circle fa-3x text-primary mr-3 mb-9"></i>
-        <div class="media-body">
-            <div class="d-flex justify-content-between">
-                <h5 class="mt-0 font-weight-bold d-inline-block ">Jane Doe</h5>
-                <a href="#" class="btn btn-outline-primary btn-sm float-right">Trả lời</a>
-            </div>
-            <p class="text-muted mt-2">Nulla vel metus scelerisque ante sollicitudin.</p>
-        </div>
-    </div>
-    <div class="media m50 d-flex align-items-center">
-        <i class="fas fa-user-circle fa-3x text-primary mr-3 mb-9"></i>
-        <div class="media-body">
-            <div class="d-flex justify-content-between">
-                <h5 class="mt-0 font-weight-bold d-inline-block ">Anna</h5>
-                <a href="#" class="btn btn-outline-primary btn-sm float-right">Trả lời</a>
-            </div>
-            <p class="text-muted mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores maxime placeat voluptatibus praesentium consequatur, quae mollitia totam at quisquam numquam debitis facilis exercitationem. Voluptatibus explicabo nobis odio sint asperiores!</p>
-        </div>
-    </div>
-    <div class="media m50 d-flex align-items-center">
-        <i class="fas fa-user-circle fa-3x text-primary mr-3 mb-9"></i>
-        <div class="media-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mt-0 font-weight-bold d-inline-block">Bean kep</h5>
-                <a href="#" class="btn btn-outline-primary btn-sm">Trả lời</a>
-            </div>
-            <p class="text-muted mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, in, sapiente, laudantium commodi assumenda ex laboriosam non autem doloremque unde saepe culpa debitis sequi incidunt omnis iusto aut rerum quam.</p>
-        </div>
-    </div>
-    <hr class="mb40"> -->
-
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let newsItems = document.querySelectorAll('.news-item');
-        let detailContainer = document.getElementById('news-detail');
-
-        newsItems.forEach(item => {
-            item.addEventListener('click', async function(event) {
-                event.preventDefault();
-                let title = this.getAttribute('data-title');
-                let author = this.getAttribute('data-author');
-                let summary = this.getAttribute('data-summary');
-                let content = this.getAttribute('data-content');
-                let date = this.getAttribute('data-date');
-                let avatar = this.getAttribute('data-avatar');
-                let newsId = this.getAttribute('data-news-id');
-                let feedbacks = JSON.parse(this.getAttribute('data-feedbacks') || '[]'); // Chuyển JSON thành mảng
-
-                let feedbackHtml = '';
-
-                if (feedbacks.length === 0) {
-                    feedbackHtml = '<li class="list-group-item text-muted">Không có phản hồi.</li>';
-                } else {
-                    // Sắp xếp phản hồi theo `ngaythacmac` giảm dần (mới nhất lên trước)
-                    feedbacks.sort((a, b) => new Date(b.ngaythacmac) - new Date(a.ngaythacmac));
-                    feedbacks.forEach(fb => {
-                        feedbackHtml += `
-                        <div class="media m50 d-flex align-items-center">
-                            <i class="fas fa-user-circle fa-5x text-primary mr-9 mb-9 m-3"></i>
-                            <div class="media-body">
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="mt-0 font-weight-bold d-inline-block">${fb.nguoigui}</h5>
-                                </div>
-                                <p class="text-muted mt-2">${fb.noidung}</p>
-                            </div>
-                        </div>
-                    `;
-                    });
-                }
-
-                // Lấy danh sách phản hồi từ API
+    /* Đảm bảo các div từ div1 đến div9 có kích thước đầy đủ */
+    .div1,
+    .div2,
+    .div3,
+    .div4,
+    .div5,
+    .div6,
+    .div7,
+    .div8,
+    .div9,
+    .div10,
+    .div11,
+    .div12,
+    .div13,
+    .div14 {
+        height: 100%;
+        width: 100%;
+    }
 
 
-                detailContainer.innerHTML = `
-                    <div class="media p-3 border rounded bg-white">
-                        
-                        <div class="d-flex align-items-center">
-                            <img class="mr-3 img-fluid rounded-circle m-3" width="64" src="${avatar}" alt="News Image">
-                            <h3 class="mt-0 mb-1 bold">Tác giả: ${author}</h3>
-                        </div>
-                        <br>
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1 bold">Tên tin tức : ${title}</h5>
-                            
-                            <div style="width: 800px; word-wrap: break-word;">  
-                                <p><strong>Nội dung:</strong> <strong>${content}</strong></p>
-                            </div>  
-                            <small class="text-primary">Ngày đăng: ${date}</small>
-                        </div>
+    .card {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-body {
+        flex-grow: 1;
+    }
+
+
+    .card-img-top {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+
+    }
+</style>
+<div class="mt-3">
+    <div class="container-fluid">
+        <div class="parent">
+            @foreach($news as $new)
+            <div class="div{{$loop->iteration}}">
+                <div class="card">
+                    <img src="{{ asset('storage/' . $new->path) }}" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column justify-content-end">
+                        <a href="{{ route('newsviews.show', $new->matintuc) }}" class="text-decoration-none text-dark">
+                            <h5 class="card-title text-dark">{{$new->tentintuc}}</h5>
+                            <p class="card-text text-dark">{{$new->mota}}</p>
+                        </a>
+                        <h6 class="text mt-3">{{ \Carbon\Carbon::parse($new->updated_at)->diffForHumans() }}</h6>
                     </div>
-                    
-                    <ul class="list-inline share-buttons">
-        <li class="list-inline-item">Chia sẻ bài viết:</li>
-        <li class="list-inline-item">
-            <a href="#" class="social-icon-sm si-dark si-colored-facebook si-gray-round">
-                <i class="fab fa-facebook"></i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a href="#" class="social-icon-sm si-dark si-colored-twitter si-gray-round">
-                <i class="fab fa-twitter"></i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a href="#" class="social-icon-sm si-dark si-colored-linkedin si-gray-round">
-                <i class="fab fa-linkedin"></i>
-            </a>
-        </li>
-    </ul>
+                </div>
+            </div>
+            @endforeach
 
-    <hr class="mb40">
-    <h4 class="mb40 text-uppercase font500">Về tác giả </h4>
-    <div class="media mb40">
-        <div class="d-flex align-items-center">
-            <img class="mr-3 img-fluid rounded-circle m-3" width="64" src="${avatar}" alt="News Image">
-            <h5 class="mt-0 font700">${author}</h5>
         </div>
-        <div class="media-body ">
-
-            <strong>Mô tả: </strong>${summary}
+        <div class="d-flex justify-content-center mt-3">
+            {{ $news->links() }}
         </div>
     </div>
 
-    <hr class="mb40">
-    <h4 class="mb40 text-uppercase font500">Bình luận</h4>
-    ${feedbackHtml}
-    <hr class="mb40">
-    <!-- feedbacks -->
-    <h4 class="mb40 text-uppercase font500">Thêm bình luận </h4>
-    @if (session('success'))
-    <div class="container">
-        <div class="alert alert-success alert-dismissible" role="alert">
-            {{ session('success') }}
-            <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
-        </div>
-    </div>
-    @endif
+</div>
 
-    @if (session('error'))
-    <div class="container">
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            {{ session('error') }}
-            <button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
-        </div>
-    </div>
-    @endif
-@if(Auth::check())
-    <form id="commentForm" method="POST">
-        @csrf
-        
-        <div class="mb-3 bold">
-            <label for="nguoigui" class="form-label">Tên</label>
-            <input type="text" class="form-control bold" id="nguoigui" name="nguoigui" value="{{ Auth::user()->tentaikhoan }}" readonly>
-        </div>
-
-        <div class="mb-3">
-            <label for="noidung" class="form-label">Bình luận</label>
-            <textarea class="form-control" id="noidung" name="noidung" rows="4">{{ old('noidung') }}</textarea>
-            @if ($errors->has('noidung'))
-            <span class="error-message text-danger small mt-1 fst-italic">*{{ $errors->first('noidung') }}</span>
-            @endif
-        </div>
-
-        <div class="d-flex justify-content-end gap-2">
-            <button type="submit" class="btn btn-primary">Gửi</button>
-        </div>
-    </form>
-    @endif
-                    
-                `;
-                // Cập nhật action của form sau khi render
-                document.getElementById('commentForm').action = `/newsviews/${newsId}/comment`;
-            });
-        });
-    });
-</script>
 @endsection

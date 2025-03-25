@@ -66,7 +66,7 @@
                             <label for="trangthai" class="form-label">Trạng thái</label>
                             <select class="form-control" name="trangthai" id="trangthai">
                                 <option value="public">Công khai</option>
-                                <option value="pending">Chờ duyệt</option>
+                                <option value="pending">Bản nháp</option>
                             </select>
                             @if ($errors->has('trangthai'))
                             <span class="error-message text-danger small mt-1 fst-italic">*{{$errors->first('trangthai')}}</span>

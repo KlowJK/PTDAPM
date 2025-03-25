@@ -17,7 +17,7 @@ class DocumentController extends Controller
     public function index()
     {
         //
-        $documents = Document::whereNull('deleted_at')->orderBy('updated_at', 'desc')->paginate(5);
+        $documents = Document::whereNull('deleted_at')->orderBy('updated_at', 'desc')->paginate(10);
         return view('documents.index', compact('documents'));
     }
 
