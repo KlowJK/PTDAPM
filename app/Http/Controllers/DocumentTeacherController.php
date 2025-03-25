@@ -14,7 +14,7 @@ class DocumentTeacherController extends Controller
      */
     public function index()
     {
-        $documents = Document::get();
+        $documents = Document::where('nguoidang', Auth::user()->tentaikhoan)->get();
         return (view('teachers.index', compact('documents')));
     }
 

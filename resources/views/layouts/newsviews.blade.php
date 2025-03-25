@@ -516,23 +516,22 @@ Template sidebar
     <header>
 
         <div class="section-one">
-            <div class="container">
+            <div class="mx-3 ">
                 <div class="row align-items-center">
-                    <!-- Logo bên trái -->
+
                     <div class="col-4">
                         <div class="inner-logo">
-                            <img src="{{url('assets/images/logos/logo_cntt.png')}}" alt="">
+                            <a href="{{route('newsviews.index')}}"><img src="{{url('assets/images/logos/logo_cntt.png')}}" alt=""></a>
+
                         </div>
                     </div>
 
-                    <!-- Chữ ở giữa -->
                     <div class="col-4">
                         <div class="inner-content text-center">
                             <h2>CHUẨN MỰC - SÁNG TẠO - TIÊN PHONG</h2>
                         </div>
                     </div>
 
-                    <!-- Đăng nhập bên phải -->
                     <div class="col-4">
                         <div class="d-flex justify-content-end">
                             @if (Route::has('login'))
@@ -597,155 +596,46 @@ Template sidebar
         </div>
 
         <div class="section-two">
-            <nav class="nav">
-                <div class="container">
-                    <div class="inner-item d-flex justify-content-around">
-                        <div><a href="#"><i class="fa-solid fa-house"></i></a></div>
-                        <div><a href="#">GIỚI THIỆU</a></div>
-                        <div><a href="#">TIN TỨC & THÔNG BÁO</a></div>
-                        <div><a href="#">TUYỂN SINH</a></div>
-                        <div><a href="#">ĐÀO TẠO </a></div>
-                        <div><a href="#">NGHIÊN CỨU</a></div>
-                        <div><a href="#">ĐỐI NGOẠI</a></div>
-                        <div><a href="#">VĂN BẢN</a></div>
-                        <div><a href="#">SINH VIÊN</a></div>
-                        <div><a href="#">LIÊN HỆ</a></div>
-                    </div>
-                </div>
-            </nav>
             <div>
                 <div class="container">
                     <div class="inner-img">
-                        <img src="assets\images\newsview\web1.jpg" alt="">
+                        <img src="{{url('assets\images\newsview\web1.jpg')}}" alt="">
                     </div>
                 </div>
             </div>
         </div>
-        <hr>
         <div class="section-three container pb50">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-1">
                         <div class="inner-item">
-                            <div class="inner-img">
-                                <img src="assets\images\newsview\tuyen_sinh.png" alt="">
-                            </div>
                             <div class="inner-title">
-                                <p>Tuyển sinh</p>
+                                <a href="{{route('newsviews.index')}}" class="text-dark"> <strong>Tin tức</strong></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-1">
                         <div class="inner-item">
-                            <div class="inner-img">
-                                <img src="assets\images\newsview\65_64x40.png" alt="">
-                            </div>
                             <div class="inner-title">
-                                <p>65 Năm</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="inner-item">
-                            <div class="inner-img">
-                                <img src="assets\images\newsview\viec_lam.png" alt="">
-                            </div>
-                            <div class="inner-title">
-                                <p>Thông tin việc làm</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="inner-item">
-                            <div class="inner-img">
-                                <img src="assets\images\newsview\quality.jpg" alt="">
-                            </div>
-                            <div class="inner-title">
-                                <p>Đảm bảo chất lượng</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="inner-item">
-                            <a href="{{ route('searchsearchdocument.index') }}">
-                                <div class="inner-img">
-                                    <img src="assets\images\newsview\www.jpg" alt="">
-                                </div>
-                                <div class="inner-title">
-                                    <p>Tài liệu</p>
-                                </div>
-                            </a>
-
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="inner-item">
-                            <div class="inner-img">
-                                <img src="assets\images\newsview\email.jpg" alt="">
-                            </div>
-                            <div class="inner-title">
-                                <p>TLU Mail</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="inner-item">
-                            <div class="inner-img">
-                                <img src="assets\images\newsview\lichcongtac.jpg" alt="">
-                            </div>
-                            <div class="inner-title">
-                                <p>Lịch công tác</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="inner-item">
-                            <div class="inner-img">
-                                <img src="assets\images\newsview\user.jpg" alt="">
-                            </div>
-                            <div class="inner-title">
-                                <p>Đăng ký học</p>
+                                <a href="{{route('searchsearchdocument.index')}}" class="text-dark"> <strong>Tài liệu</strong></a>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
+            <hr>
         </div>
-
     </header>
 
-
-    <hr>
-    <div class="container pb50">
+    <div class=" mx-7">
         <div class="row">
-            <div class="col-md-9 mb40">
-                <article>
-                    <div class="post-content">
-                        @yield('content')
-
-
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-md-3 mb40">
-
-
-                <div>
-                    <h4 class="sidebar-title">Tin tức mới nhất</h4>
-                    <ul class="list-unstyled">
-                        @yield('main')
-                    </ul>
-                </div>
-
-
-            </div>
+            @yield('main')
         </div>
     </div>
 
 </body>
-<!-- footer -->
+
 <footer class="footer-page">
     <div class="footer-top">
         <div class="container">
@@ -767,13 +657,13 @@ Template sidebar
                 </div>
             </div>
         </div>
-    </div><!-- /.footer-top -->
+    </div>
     <div class="footer-middle">
         <div class="container">
             <div id="dnn_footerPane">
                 <div class="DnnModule DnnModule-DNN_HTML DnnModule-1517"><a name="1517"></a>
                     <div class="DNNContainer_noTitle">
-                        <div id="dnn_ctr1517_ContentPane"><!-- Start_Module_1517 -->
+                        <div id="dnn_ctr1517_ContentPane">
                             <div id="dnn_ctr1517_ModuleContent" class="DNNModuleContent ModDNNHTMLC">
                                 <div id="dnn_ctr1517_HtmlModule_lblContent" class="Normal">
                                     <div class="row">
@@ -798,7 +688,7 @@ Template sidebar
                                 </div>
 
                             </div>
-                        </div><!-- /.footer-middle -->
+                        </div>
 </footer>
 <script src="{{url('assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
@@ -807,6 +697,6 @@ Template sidebar
 <script src="{{url('assets/js/sidebarmenu.js')}}"></script>
 <script src="{{url('assets/js/app.min.js')}}"></script>
 <script src="{{url('assets/js/dashboard.js')}}"></script>
-<!-- footer -->
+
 
 </html>

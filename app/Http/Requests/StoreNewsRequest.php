@@ -25,7 +25,7 @@ class StoreNewsRequest extends FormRequest
             'tentintuc' => 'required|string|max:255',
             'mota' => 'required|string',
             'noidung' => 'required|string',
-            'path' => ['required', 'image', 'max:2048', 'mimes:jpeg,png,jpg,gif,svg,webp'],
+            'path' => ['required', 'image', 'max:4096', 'mimes:jpeg,png,jpg,gif,svg,webp'],
             'trangthai' => 'required|in:pending,public',
         ];
     }
@@ -39,7 +39,7 @@ class StoreNewsRequest extends FormRequest
             'path.required' => 'Vui lòng chọn ảnh cho tin tức.',
             'path.image' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
             'path.mimes' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
-            'path.max' => 'Kích thước ảnh không được vượt quá 2MB.',
+            'path.max' => 'Kích thước ảnh không được vượt quá 4MB.',
             'trangthai.required' => 'Vui lòng chọn trạng thái tin tức.',
             'trangthai.in' => 'Trạng thái không hợp lệ.',
         ];

@@ -167,7 +167,7 @@ class NewsController extends Controller
                     Notification::send($author, new NewsRejected($news, $action));
                     return redirect()->route('news.index')->with('success', 'Tin tức đã bị từ chối.');
                 } catch (\Exception $e) {
-                    return redirect()->route('news.index')->with('warning', 'Tin tức đã bị từ chối nhưng không thể gửi thông báo cho tác giả.');
+                    return redirect()->route('news.index')->with('error', 'Tin tức đã bị từ chối nhưng không thể gửi thông báo cho tác giả.');
                 }
             }
         } catch (\Exception $e) {
@@ -192,10 +192,9 @@ class NewsController extends Controller
                     $action = 'approve';
                     $author = $news->user; // Giả định News model có quan hệ với User
                     Notification::send($author, new NewsApproved($news, $action));
-                    return redirect()->route('news.index')
-                        ->with('success', 'Tin tức đã được duyệt và công khai.');
+                    return redirect()->route('news.index')->with('success', 'Tin tức đã được duyệt và công khai.');
                 } catch (\Exception $e) {
-                    return redirect()->route('news.index')->with('warning', 'Tin tức đã được duyệt nhưng không thể gửi thông báo cho tác giả.');
+                    return redirect()->route('news.index')->with('error', 'Tin tức đã được duyệt nhưng không thể gửi thông báo cho tác giả.');
                 }
             }
         } catch (\Exception $e) {

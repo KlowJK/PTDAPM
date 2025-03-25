@@ -63,6 +63,7 @@ Route::get('/document/search/find', [SearchDocument::class, 'search'])->name('se
 
 
 Route::post('/newsviews/{id}/comment', [FeedbackController::class, 'store'])->name('newsviews.comment');
+Route::get('/newsviews/{id}', [NewsViewController::class, 'show'])->name('newsviews.show');
 Route::get('/newsviews', [NewsViewController::class, 'index'])->name('newsviews.index');
 
 require __DIR__ . '/auth.php';

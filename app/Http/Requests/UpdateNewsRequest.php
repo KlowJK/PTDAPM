@@ -25,7 +25,7 @@ class UpdateNewsRequest extends FormRequest
             'tentintuc' => 'required|string|max:255',
             'mota' => 'required|string',
             'noidung' => 'required|string',
-            'path' => ['required', 'image', 'max:2048', 'mimes:jpeg,png,jpg,gif,svg,webp'],
+            'path' => ['required', 'image', 'max:10240', 'mimes:jpeg,png,jpg,gif,svg,webp'],
 
         ];
     }
@@ -38,7 +38,7 @@ class UpdateNewsRequest extends FormRequest
             'noidung.required' => 'Vui lòng nhập nội dung bài viết.',
             'path.image' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
             'path.mimes' => 'Định dạng ảnh không hợp lệ. Vui lòng tải lên ảnh dưới dạng JPG, PNG, GIF, SVG hoặc WEBP.',
-            'path.max' => 'Kích thước ảnh không được vượt quá 2MB.',
+            'path.max' => 'Kích thước ảnh không được vượt quá 10MB.',
             'path.required' => 'Vui lòng chọn ảnh cho bài viết.',
         ];
     }

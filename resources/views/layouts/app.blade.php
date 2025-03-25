@@ -30,7 +30,8 @@
             <div class="container-fluid">
                 <div>
                     <div class="inner-logo">
-                        <img src="{{url('assets/images/logos/logo_cntt.png')}}" alt="" style="width: 300px;">
+                        <a href="{{route('newsviews.index')}}"> <img src="{{url('assets/images/logos/logo_cntt.png')}}" alt="" style="width: 300px;"></a>
+
                     </div>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

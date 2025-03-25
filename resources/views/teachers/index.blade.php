@@ -93,12 +93,11 @@
                         </td>
                         <td style="white-space: nowrap; overflow: hidden;text-overflow: ellipsis; max-width: 150px">{{ $item->noidung }}</td>
                         <td>
-                            @if ($item->TrangThai == 0)
-                            <span class="ant-tag-like ant-tag-like-green">Đã duyệt</span>
-                            @elseif($item->TrangThai == 1)
-                            <span class="ant-tag-like ant-tag-like-red">Đã bị ẩn</span>
-                            @elseif($item->TrangThai == 2)
-                            <span class="ant-tag-like ant-tag-like-yellow">Đang chờ</span>
+                            @if ($item->trangthaiduyet == 0)
+                            <span class="ant-tag-like ant-tag-like-green">Đang chờ</span>
+                            @elseif($item->trangthaiduyet == 1)
+                            <span class="ant-tag-like ant-tag-like-red">Đã duyệt</span>
+
                             @endif
                         </td>
                         <td>
@@ -117,12 +116,10 @@
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <p><strong>Trạng thái: </strong> @if ($item->TrangThai == 0)
-                                                            <span class="ant-tag-like ant-tag-like-green">Đã duyệt</span>
-                                                            @elseif($item->TrangThai == 1)
-                                                            <span class="ant-tag-like ant-tag-like-red">Đã bị ẩn</span>
-                                                            @elseif($item->TrangThai == 2)
-                                                            <span class="ant-tag-like ant-tag-like-yellow">Đang chờ</span>
+                                                        <p><strong>Trạng thái: </strong> @if ($item->trangthaiduyet == 0)
+                                                            <span class="ant-tag-like ant-tag-like-green">Đang chờ</span>
+                                                            @elseif($item->trangthaiduyet == 1)
+                                                            <span class="ant-tag-like ant-tag-like-red">Đã duyệt</span>
                                                             @endif
                                                         </p>
                                                         <p><strong>Mã tài liệu:</strong> {{$item->matailieu}}</p>
@@ -132,7 +129,7 @@
                                                                     <img style="width: 50px" src="https://www.w3schools.com/images/myw3schoolsimage.jpg"></img>
                                                                 </a>
                                                             </strong></p>
-                                                        <p><strong>Người đăng:</strong> {{$item->user->TenTaiKhoan}}</p>
+                                                        <p><strong>Người đăng:</strong> {{$item->user ? $item->user->tentaikhoan : 'N/A'}}</p>
                                                         <p><strong>Ngày đăng:</strong> {{$item->created_at}}</p>
                                                     </div>
                                                     <div class="col-md-6">

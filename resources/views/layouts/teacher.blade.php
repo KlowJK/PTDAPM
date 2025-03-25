@@ -20,7 +20,7 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="{{route('newsviews.index')}}" class="text-nowrap logo-img">
-                        <img src="assets/images/logos/logo_cntt.png" alt="" style="width: 200px;" />
+                        <img src="{{url('assets/images/logos/logo_cntt.png')}}" alt="" style="width: 200px;" />
                     </a>
 
 

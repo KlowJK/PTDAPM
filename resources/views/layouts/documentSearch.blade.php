@@ -718,11 +718,8 @@ Template sidebar
         <article>
             <div class="post-content">
                 @yield('content')
-
-
             </div>
         </article>
-
     </div>
 
 </body>

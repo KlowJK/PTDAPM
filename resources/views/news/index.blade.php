@@ -63,37 +63,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($news as $item)
-                                <tr onclick="window.location='{{ route('news.show', $item->matintuc) }}'" style="cursor: pointer;">
-                                    <td>{{ $item->matintuc }}</td>
-                                    <td>{{ $item->tentintuc }}</td>
-                                    <td>{{ $item->mota }}</td>
-                                    <td>@if($item->user->vaitro === 'student' && $item->user->student)
-                                        {{ $item->user->student->tensinhvien }}
-                                        @elseif($item->user->vaitro === 'teacher' && $item->user->teacher)
-                                        {{ $item->user->teacher->tengiaovien }}
-                                        @elseif($item->user->vaitro === 'admin' && $item->user->admin)
-                                        {{ $item->user->admin->tenquantri }}
+                                @foreach($news as $new)
+                                <tr onclick="window.location='{{ route('news.show', $new->matintuc) }}'" style="cursor: pointer;">
+                                    <td>{{ $new->matintuc }}</td>
+                                    <td>{{ $new->tentintuc }}</td>
+                                    <td>{{ $new->mota }}</td>
+                                    <td>
+                                        @if($new->user)
+                                        @if($new->user->vaitro === 'admin' && $new->user->admin)
+                                        {{ $new->user->admin->tenquantri }}
+                                        @elseif($new->user->vaitro === 'teacher' && $new->user->teacher)
+                                        {{ $new->user->teacher->tengiaovien }}
+                                        @elseif($new->user->vaitro === 'student' && $new->user->student)
+                                        {{ $new->user->student->tensinhvien }}
+                                        @else
+                                        Không có tác giả
+                                        @endif
+                                        @else
+                                        Không có tác giả
                                         @endif
                                     </td>
                                     <td>
-                                        @if($item->trangthai == 'public')
+                                        @if($new->trangthai == 'public')
                                         <strong class="text text-nowrap">Công khai</strong>
-                                        @elseif($item->trangthai == 'pending')
+                                        @elseif($new->trangthai == 'pending')
                                         <strong class="text text-nowrap">Chờ duyệt</strong>
-                                        @elseif($item->trangthai == 'rejected')
+                                        @elseif($new->trangthai == 'rejected')
                                         <strong class="text text-nowrap">Từ chối</strong>
                                         @endif
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-{{ $item->matintuc }}" onclick="event.stopPropagation();">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-{{ $new->matintuc }}" onclick="event.stopPropagation();">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </td>
 
                                     <!-- Modal -->
-                                    <div class="modal fade " id="modal-{{ $item->matintuc }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade " id="modal-{{ $new->matintuc }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -105,7 +112,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                    <form action="{{route('news.destroy',$item->matintuc)}}" method="POST">
+                                                    <form action="{{route('news.destroy',$new->matintuc)}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Xác nhận</button>
